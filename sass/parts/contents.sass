@@ -1,0 +1,30 @@
+@use './variable' as *
+
+.content--select
+ margin: 0 0 0 240px
+ padding: 10px
+ .card
+   position: relative
+   height: 40px
+   max-width: 40px
+   width: 100%
+   .btn
+     position: absolute
+     top: 5px
+     right: 5px
+     display: flex
+     justify-content: center
+     align-items: center
+     width: 20px
+     height: 20px
+     background-color: $white-color
+     &--control
+       font-size: 20px
+       &:hover
+         cursor: grab
+       &:active
+         cursor: grabbing
+   .title
+     margin: 0 0 10px
+     border--bottom: 1px solid $gray-color
+     font-size: 14px
