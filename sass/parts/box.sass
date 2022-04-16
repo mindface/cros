@@ -1,0 +1,43 @@
+@use './variable' as *
+
+.box
+  &--select
+    height: 1200px
+    width: 1200px
+    margin: 0 0 0 240px
+    padding: 10px
+    background-size: 100%
+    .card
+      position: relative
+      height: 60px
+      max-width: 60px
+      width: 100%
+      .btn
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 30px
+        height: 30px
+        background-color: $white-color
+        &--control
+          font-size: 2rem
+          &:hover
+            cursor: pointer
+      .title
+        margin: 0 0 10px
+        border--bottom: 1px solid $gray-color
+        font-size: 1.4rem
+      .view
+        &.info
+          &-box
+            display: block
+      .info
+        &-box
+          display: none
+          position: absolute
+          top: 0
+          left: 100%
+          height: 240px
+          width: 320px
+          padding: 10px
+          background-color: $white-color

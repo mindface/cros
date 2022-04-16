@@ -1,10 +1,12 @@
 import React from 'react';
+import FooterSelect from "./FooterSelect";
 
 function Footer(){
   return (
    <footer className="footer">
      <div className="footer__inner">
-       <small className="copyright">&copy; set flor</small>
+       <FooterSelect />
+       <small className="copyright">&copy; setFlowr</small>
      </div>
    </footer>
   )

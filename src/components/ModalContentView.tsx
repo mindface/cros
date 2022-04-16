@@ -1,21 +1,30 @@
 import React from 'react';
+import { useSelector, useStore, useDispatch } from "react-redux";
+import { SelectorRootStore } from "../store";
 
 function ContentSets(){
-  const list = [
-    {id:1, name: "title", x: 20, y: 20, content: "tetetetet" },
-    {id:2, name: "title", x: 40, y: 80, content: "tetetetet" },
-  ]
+  const store = useStore();
+  const dispatch = useDispatch();
+  const modalSwitch = useSelector(() => {
+    return store.getState().base.modal.modalView
+  })
+  const setId = useSelector((state:SelectorRootStore) => {
+    return state.base.card.setId
+  })
+  function closeAction(){
+    dispatch({type:'modal/close'});
+    document.getElementsByTagName('body')[0].className = "";
+  }
+
   return (
-   <div className="content--select p-10">
-     {list.map((item) => {
-       return (
-        <div className="card p-10 boxShadow radius" key={item.id}>
-          <div className="btn btn--control boxShadow radius">+</div>
-          <h3 className="title">{item.name}</h3>
-          <div className="view-content">{item.content}</div>
-        </div>
-       )
-     })}
+   <div className={modalSwitch ? "modal view" : "modal"}>
+     {modalSwitch && <div className="modal--inner">
+       <button className='close boxShadow radius' onClick={() => closeAction()} >close</button>
+       <h3 className="title">view</h3>
+       <div className="box">
+         <iframe src={`/contents0${setId}`} className='iframe'></iframe>
+       </div>
+     </div>}
    </div>
   )
 }

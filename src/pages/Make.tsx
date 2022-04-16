@@ -2,14 +2,18 @@ import React from 'react';
 
 import ContentSets from "../components/ContentSets";
 import SideSelect from "../components/SideSelect";
+import ModalContentView from "../components/ModalContentView";
 
-function Home(){
+function Make(){
  return (
-   <div className="content">
+   <div className="contents-wrapper">
     <SideSelect />
-    <ContentSets />
+    <div className="content--make">
+      <ContentSets />
+    </div>
+    <ModalContentView />
    </div>
  )
 }
 
-export default Home;
+export default Make;

@@ -2,8 +2,16 @@
 export interface Card {
   id: number;
   name: string;
-  x: string;
-  y: string;
+  x: number;
+  y: number;
   content: string;
-  guropsnumber: number;
+  contentId: string;
 }
+
+export interface Cards {
+  type: string;
+  cards: Card[];
+  card: (Card | object);
+  setId: string;
+}
+

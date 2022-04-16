@@ -1008,7 +1008,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState5(initialState) {
+          function useState7(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1016,7 +1016,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef5(initialValue) {
+          function useRef6(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
@@ -1036,7 +1036,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo6(create, deps) {
+          function useMemo7(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1805,10 +1805,10 @@
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect4;
-          exports.useMemo = useMemo6;
+          exports.useMemo = useMemo7;
           exports.useReducer = useReducer3;
-          exports.useRef = useRef5;
-          exports.useState = useState5;
+          exports.useRef = useRef6;
+          exports.useState = useState7;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2304,9 +2304,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React15 = require_react();
+          var React20 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React15.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React20.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3702,7 +3702,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React15.Children.forEach(props.children, function(child) {
+                  React20.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11249,7 +11249,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React15.Component().refs;
+          var emptyRefsObject = new React20.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -13180,7 +13180,7 @@
           var NoFlags$1 = 0;
           var HasEffect = 1;
           var Insertion = 2;
-          var Layout = 4;
+          var Layout2 = 4;
           var Passive$1 = 8;
           var workInProgressSources = [];
           function resetWorkInProgressVersions() {
@@ -13872,10 +13872,10 @@
             if ((currentlyRenderingFiber$1.mode & StrictEffectsMode) !== NoMode) {
               fiberFlags |= MountLayoutDev;
             }
-            return mountEffectImpl(fiberFlags, Layout, create, deps);
+            return mountEffectImpl(fiberFlags, Layout2, create, deps);
           }
           function updateLayoutEffect(create, deps) {
-            return updateEffectImpl(Update, Layout, create, deps);
+            return updateEffectImpl(Update, Layout2, create, deps);
           }
           function imperativeHandleEffect(create, ref) {
             if (typeof ref === "function") {
@@ -13913,7 +13913,7 @@
             if ((currentlyRenderingFiber$1.mode & StrictEffectsMode) !== NoMode) {
               fiberFlags |= MountLayoutDev;
             }
-            return mountEffectImpl(fiberFlags, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
+            return mountEffectImpl(fiberFlags, Layout2, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
           function updateImperativeHandle(ref, create, deps) {
             {
@@ -13922,7 +13922,7 @@
               }
             }
             var effectDeps = deps !== null && deps !== void 0 ? deps.concat([ref]) : null;
-            return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
+            return updateEffectImpl(Update, Layout2, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
           function mountDebugValue(value, formatterFn) {
           }
@@ -17703,7 +17703,7 @@
           };
           function safelyCallCommitHookLayoutEffectListMount(current2, nearestMountedAncestor) {
             try {
-              commitHookEffectListMount(Layout, current2);
+              commitHookEffectListMount(Layout2, current2);
             } catch (error2) {
               reportUncaughtErrorInDEV(error2);
               captureCommitPhaseError(current2, nearestMountedAncestor, error2);
@@ -17885,7 +17885,7 @@
                     {
                       if ((flags & Passive$1) !== NoFlags$1) {
                         markComponentPassiveEffectUnmountStarted(finishedWork);
-                      } else if ((flags & Layout) !== NoFlags$1) {
+                      } else if ((flags & Layout2) !== NoFlags$1) {
                         markComponentLayoutEffectUnmountStarted(finishedWork);
                       }
                     }
@@ -17893,7 +17893,7 @@
                     {
                       if ((flags & Passive$1) !== NoFlags$1) {
                         markComponentPassiveEffectUnmountStopped();
-                      } else if ((flags & Layout) !== NoFlags$1) {
+                      } else if ((flags & Layout2) !== NoFlags$1) {
                         markComponentLayoutEffectUnmountStopped();
                       }
                     }
@@ -17914,7 +17914,7 @@
                   {
                     if ((flags & Passive$1) !== NoFlags$1) {
                       markComponentPassiveEffectMountStarted(finishedWork);
-                    } else if ((flags & Layout) !== NoFlags$1) {
+                    } else if ((flags & Layout2) !== NoFlags$1) {
                       markComponentLayoutEffectMountStarted(finishedWork);
                     }
                   }
@@ -17923,7 +17923,7 @@
                   {
                     if ((flags & Passive$1) !== NoFlags$1) {
                       markComponentPassiveEffectMountStopped();
-                    } else if ((flags & Layout) !== NoFlags$1) {
+                    } else if ((flags & Layout2) !== NoFlags$1) {
                       markComponentLayoutEffectMountStopped();
                     }
                   }
@@ -17931,7 +17931,7 @@
                     var destroy = effect.destroy;
                     if (destroy !== void 0 && typeof destroy !== "function") {
                       var hookName = void 0;
-                      if ((effect.tag & Layout) !== NoFlags) {
+                      if ((effect.tag & Layout2) !== NoFlags) {
                         hookName = "useLayoutEffect";
                       } else if ((effect.tag & Insertion) !== NoFlags) {
                         hookName = "useInsertionEffect";
@@ -18002,12 +18002,12 @@
                     if (finishedWork.mode & ProfileMode) {
                       try {
                         startLayoutEffectTimer();
-                        commitHookEffectListMount(Layout | HasEffect, finishedWork);
+                        commitHookEffectListMount(Layout2 | HasEffect, finishedWork);
                       } finally {
                         recordLayoutEffectDuration(finishedWork);
                       }
                     } else {
-                      commitHookEffectListMount(Layout | HasEffect, finishedWork);
+                      commitHookEffectListMount(Layout2 | HasEffect, finishedWork);
                     }
                   }
                   break;
@@ -18331,7 +18331,7 @@
                       if (destroy !== void 0) {
                         if ((tag & Insertion) !== NoFlags$1) {
                           safelyCallDestroy(current2, nearestMountedAncestor, destroy);
-                        } else if ((tag & Layout) !== NoFlags$1) {
+                        } else if ((tag & Layout2) !== NoFlags$1) {
                           {
                             markComponentLayoutEffectUnmountStarted(current2);
                           }
@@ -18646,12 +18646,12 @@
                 if (finishedWork.mode & ProfileMode) {
                   try {
                     startLayoutEffectTimer();
-                    commitHookEffectListUnmount(Layout | HasEffect, finishedWork, finishedWork.return);
+                    commitHookEffectListUnmount(Layout2 | HasEffect, finishedWork, finishedWork.return);
                   } finally {
                     recordLayoutEffectDuration(finishedWork);
                   }
                 } else {
-                  commitHookEffectListUnmount(Layout | HasEffect, finishedWork, finishedWork.return);
+                  commitHookEffectListUnmount(Layout2 | HasEffect, finishedWork, finishedWork.return);
                 }
                 return;
               }
@@ -18986,12 +18986,12 @@
                   if (fiber.mode & ProfileMode) {
                     try {
                       startLayoutEffectTimer();
-                      commitHookEffectListUnmount(Layout, fiber, fiber.return);
+                      commitHookEffectListUnmount(Layout2, fiber, fiber.return);
                     } finally {
                       recordLayoutEffectDuration(fiber);
                     }
                   } else {
-                    commitHookEffectListUnmount(Layout, fiber, fiber.return);
+                    commitHookEffectListUnmount(Layout2, fiber, fiber.return);
                   }
                   break;
                 }
@@ -19286,7 +19286,7 @@
                 case ForwardRef:
                 case SimpleMemoComponent: {
                   try {
-                    commitHookEffectListMount(Layout | HasEffect, fiber);
+                    commitHookEffectListMount(Layout2 | HasEffect, fiber);
                   } catch (error2) {
                     reportUncaughtErrorInDEV(error2);
                     captureCommitPhaseError(fiber, fiber.return, error2);
@@ -19330,7 +19330,7 @@
                 case ForwardRef:
                 case SimpleMemoComponent: {
                   try {
-                    commitHookEffectListUnmount(Layout | HasEffect, fiber, fiber.return);
+                    commitHookEffectListUnmount(Layout2 | HasEffect, fiber, fiber.return);
                   } catch (error2) {
                     reportUncaughtErrorInDEV(error2);
                     captureCommitPhaseError(fiber, fiber.return, error2);
@@ -24771,11 +24771,11 @@
   });
 
   // src/index.tsx
-  var import_react20 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // src/App.tsx
-  var import_react19 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
 
   // node_modules/react-router-dom/index.js
   var import_react2 = __toESM(require_react());
@@ -25740,7 +25740,7 @@
   var About_default = About;
 
   // src/pages/Make.tsx
-  var import_react15 = __toESM(require_react());
+  var import_react16 = __toESM(require_react());
 
   // src/components/ContentSets.tsx
   var import_react13 = __toESM(require_react());
@@ -25952,7 +25952,7 @@
     var useReduxContext2 = context === ReactReduxContext ? useReduxContext : function() {
       return (0, import_react10.useContext)(context);
     };
-    return function useStore3() {
+    return function useStore5() {
       var _useReduxContext = useReduxContext2(), store = _useReduxContext.store;
       return store;
     };
@@ -25964,9 +25964,9 @@
     if (context === void 0) {
       context = ReactReduxContext;
     }
-    var useStore3 = context === ReactReduxContext ? useStore : createStoreHook(context);
+    var useStore5 = context === ReactReduxContext ? useStore : createStoreHook(context);
     return function useDispatch3() {
-      var store = useStore3();
+      var store = useStore5();
       return store.dispatch;
     };
   }
@@ -26047,7 +26047,7 @@
     var useReduxContext2 = context === ReactReduxContext ? useReduxContext : function() {
       return (0, import_react11.useContext)(context);
     };
-    return function useSelector3(selector, equalityFn) {
+    return function useSelector4(selector, equalityFn) {
       if (equalityFn === void 0) {
         equalityFn = refEquality;
       }
@@ -26082,6 +26082,7 @@
     const dispatch = useDispatch();
     const [card, setCard] = (0, import_react12.useState)(() => props.card);
     const [moveTg, moveTgSet] = (0, import_react12.useState)(false);
+    const [infoView, infoViewSet] = (0, import_react12.useState)(false);
     const [_x, _xSet] = (0, import_react12.useState)(0);
     const [_y, _ySet] = (0, import_react12.useState)(0);
     function modalAction(id) {
@@ -26093,55 +26094,71 @@
     function mouseMove(e) {
       if (moveTg) {
         const element = e.target;
-        const x = element.parentNode.getBoundingClientRect().left;
-        const y = element.parentNode.getBoundingClientRect().top;
-        console.log(x);
-        console.log(e);
-        _xSet(e.clientX - (x + 30));
-        _ySet(e.clientY - (y + 50));
+        const left = element.getBoundingClientRect().left;
+        const top = element.getBoundingClientRect().top;
+        const x = e.clientX - 20 - 240;
+        const y = e.clientY - (20 + 30 * (card.id - 1)) - 45;
+        console.log(left);
+        console.log(e.clientX);
+        _xSet(x);
+        _ySet(y);
       }
     }
     function mouseOut() {
       moveTgSet(false);
+      document.body.removeEventListener("mousedown", mouseDown);
+      document.body.removeEventListener("mousemove", mouseMove);
+      document.body.removeEventListener("mouseup", mouseOut);
     }
-    (0, import_react12.useEffect)(() => {
-    });
+    function viewIng(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      dispatch({ type: "modal/open", viewId: card.id });
+      dispatch({ type: "card/setId", setId: card.contentId });
+      document.getElementsByTagName("body")[0].className += "open-modal";
+    }
     return /* @__PURE__ */ import_react12.default.createElement("div", {
-      className: "card p-10 boxShadow radius",
-      style: { left: `${_x}px`, top: `${_y}px` },
+      className: `card p-10 boxShadow radius card${card.id}`,
       onMouseDown: (e) => mouseDown(),
       onMouseMove: (e) => {
         mouseMove(e);
       },
       onMouseUp: (e) => {
         mouseOut();
-      }
+      },
+      style: { left: `${_x}px`, top: `${_y}px` }
     }, /* @__PURE__ */ import_react12.default.createElement("div", {
-      className: "btn btn--control boxShadow radius"
-    }, "+"), /* @__PURE__ */ import_react12.default.createElement("h3", {
+      className: "btn btn--control boxShadow radius",
+      onClick: (e) => viewIng(e)
+    }, " + "), /* @__PURE__ */ import_react12.default.createElement("div", {
+      className: infoView ? "info-box boxShadow view" : "info-box boxShadow"
+    }, /* @__PURE__ */ import_react12.default.createElement("h3", {
       className: "title",
       onClick: (e) => modalAction(card.id)
     }, card.name), /* @__PURE__ */ import_react12.default.createElement("div", {
       className: "view-content"
-    }, card.content));
+    }, card.content)));
   }
   var Card_default = Card;
 
   // src/components/ContentSets.tsx
   function ContentSets() {
-    const store = useStore();
-    const dispatch = useDispatch();
-    const l = useSelector((state) => {
-      console.log(store.getState());
-      return state;
+    const [list, listSet] = (0, import_react13.useState)([]);
+    const [_setMap, _setMapSet] = (0, import_react13.useState)(true);
+    const selectId = useSelector((state) => {
+      return state.base.modal.selectId;
     });
-    const list = [
-      { id: 1, name: "title", x: 20, y: 20, content: "tetetetet" },
-      { id: 2, name: "title", x: 40, y: 80, content: "tetetetet" }
-    ];
+    const cardsList = useSelector((state) => {
+      console.log(state.base.card.cards);
+      return state.base.card.cards;
+    });
+    function setMap() {
+      _setMapSet(false);
+      setTimeout(() => {
+        _setMapSet(true);
+      }, 400);
+    }
     function modalAction(id) {
-      dispatch({ type: "modal/open" });
-      console.log(l.base);
     }
     function mouseDown(e) {
     }
@@ -26149,110 +26166,274 @@
     }
     function mouseOut(e) {
     }
+    const CardsList = (0, import_react13.useMemo)(() => cardsList.map((item) => /* @__PURE__ */ import_react13.default.createElement(Card_default, {
+      card: item,
+      key: item.id
+    })), [cardsList]);
     return /* @__PURE__ */ import_react13.default.createElement("div", {
-      className: "content--select p-10"
-    }, list.map((item) => {
-      return /* @__PURE__ */ import_react13.default.createElement(Card_default, {
-        card: item,
-        key: item.id
-      });
-    }));
+      className: "box--select p-10",
+      style: { backgroundImage: `url(images/item${selectId}.png)` }
+    }, cardsList.map((item) => /* @__PURE__ */ import_react13.default.createElement(Card_default, {
+      card: item,
+      key: item.id
+    })));
   }
   var ContentSets_default = ContentSets;
 
   // src/components/SideSelect.tsx
   var import_react14 = __toESM(require_react());
   function SideSelect() {
+    const dispatch = useDispatch();
+    const [contentId, contentIdSet] = (0, import_react14.useState)(-1);
     const list = [
-      { id: 0, path: "images/item-01.png", name: "titile01" },
-      { id: 1, path: "images/item-02.png", name: "titile02" },
-      { id: 2, path: "images/item-03.png", name: "titile03" }
+      { id: 1, path: "images/item1.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C401" },
+      { id: 2, path: "images/item2.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C402" },
+      { id: 3, path: "images/item3.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C403" },
+      { id: 4, path: "images/item4.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C404" }
     ];
+    const cardsList = useSelector((state) => {
+      return state.base.card.cards;
+    });
+    function addContent() {
+      const cardData = {
+        id: 0,
+        name: "title",
+        x: 40,
+        y: 100,
+        content: "tetetetet",
+        contentId: "2"
+      };
+      const list2 = cardsList;
+      list2.push(cardData);
+      dispatch({ type: "card/add", cards: [] });
+      setTimeout(() => {
+        dispatch({ type: "card/add", cards: list2 });
+      }, 600);
+    }
+    function selectContent(id) {
+      contentIdSet(id);
+    }
     return /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "side p-10 boxShadow"
-    }, /* @__PURE__ */ import_react14.default.createElement("ul", {
+    }, contentId !== -1 && /* @__PURE__ */ import_react14.default.createElement("div", {
+      className: "add-box"
+    }, /* @__PURE__ */ import_react14.default.createElement("div", {
+      className: "add-box__btn p-10",
+      onClick: () => addContent()
+    }, "\u30B3\u30F3\u30C6\u30F3\u30C4\u8FFD\u52A0")), /* @__PURE__ */ import_react14.default.createElement("ul", {
       className: "list"
     }, list.map((item) => {
       return /* @__PURE__ */ import_react14.default.createElement("li", {
-        className: "item",
-        key: item.id
+        key: item.id,
+        className: item.id === contentId ? "item active" : "item",
+        onClick: (e) => {
+          selectContent(item.id);
+        }
       }, /* @__PURE__ */ import_react14.default.createElement("div", {
         className: "img-box"
       }, /* @__PURE__ */ import_react14.default.createElement("p", {
         className: "caption"
-      }, item.name), /* @__PURE__ */ import_react14.default.createElement("img", {
+      }, item.name)));
+    })));
+  }
+  var SideSelect_default = SideSelect;
+
+  // src/components/ModalContentView.tsx
+  var import_react15 = __toESM(require_react());
+  function ContentSets2() {
+    const store = useStore();
+    const dispatch = useDispatch();
+    const modalSwitch = useSelector(() => {
+      return store.getState().base.modal.modalView;
+    });
+    const setId = useSelector((state) => {
+      return state.base.card.setId;
+    });
+    function closeAction() {
+      dispatch({ type: "modal/close" });
+      document.getElementsByTagName("body")[0].className = "";
+    }
+    return /* @__PURE__ */ import_react15.default.createElement("div", {
+      className: modalSwitch ? "modal view" : "modal"
+    }, modalSwitch && /* @__PURE__ */ import_react15.default.createElement("div", {
+      className: "modal--inner"
+    }, /* @__PURE__ */ import_react15.default.createElement("button", {
+      className: "close boxShadow radius",
+      onClick: () => closeAction()
+    }, "close"), /* @__PURE__ */ import_react15.default.createElement("h3", {
+      className: "title"
+    }, "view"), /* @__PURE__ */ import_react15.default.createElement("div", {
+      className: "box"
+    }, /* @__PURE__ */ import_react15.default.createElement("iframe", {
+      src: `/contents0${setId}`,
+      className: "iframe"
+    }))));
+  }
+  var ModalContentView_default = ContentSets2;
+
+  // src/pages/Make.tsx
+  function Make() {
+    return /* @__PURE__ */ import_react16.default.createElement("div", {
+      className: "contents-wrapper"
+    }, /* @__PURE__ */ import_react16.default.createElement(SideSelect_default, null), /* @__PURE__ */ import_react16.default.createElement("div", {
+      className: "content--make"
+    }, /* @__PURE__ */ import_react16.default.createElement(ContentSets_default, null)), /* @__PURE__ */ import_react16.default.createElement(ModalContentView_default, null));
+  }
+  var Make_default = Make;
+
+  // src/pages/parts/Contents01.tsx
+  var import_react17 = __toESM(require_react());
+  function Contents01() {
+    return /* @__PURE__ */ import_react17.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react17.default.createElement("div", {
+      className: "en"
+    }, "Information level"), /* @__PURE__ */ import_react17.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react17.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents01_default = Contents01;
+
+  // src/pages/parts/Contents02.tsx
+  var import_react18 = __toESM(require_react());
+  function Contents02() {
+    return /* @__PURE__ */ import_react18.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react18.default.createElement("div", {
+      className: "en"
+    }, "Information level 02"), /* @__PURE__ */ import_react18.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react18.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents02_default = Contents02;
+
+  // src/layout/index.tsx
+  var import_react23 = __toESM(require_react());
+
+  // src/components/Header.tsx
+  var import_react20 = __toESM(require_react());
+
+  // src/components/Nav.tsx
+  var import_react19 = __toESM(require_react());
+  function Nav() {
+    return /* @__PURE__ */ import_react19.default.createElement("div", {
+      className: "nav-outer"
+    }, /* @__PURE__ */ import_react19.default.createElement(Link, {
+      className: "link",
+      to: "/"
+    }, "home"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+      className: "link",
+      to: "/about"
+    }, "about"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+      className: "link",
+      to: "/make"
+    }, "make"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+      className: "link",
+      to: "/parts/contents01"
+    }, "contents01"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+      className: "link",
+      to: "/parts/contents02"
+    }, "contents02"));
+  }
+  var Nav_default = Nav;
+
+  // src/components/Header.tsx
+  function Header() {
+    return /* @__PURE__ */ import_react20.default.createElement("header", {
+      className: "header boxShadow"
+    }, /* @__PURE__ */ import_react20.default.createElement("div", {
+      className: "header__inner"
+    }, /* @__PURE__ */ import_react20.default.createElement(Nav_default, null)));
+  }
+  var Header_default = Header;
+
+  // src/components/Footer.tsx
+  var import_react22 = __toESM(require_react());
+
+  // src/components/FooterSelect.tsx
+  var import_react21 = __toESM(require_react());
+  function FooterSelect() {
+    const dispatch = useDispatch();
+    const list = [
+      { id: 1, path: "images/item1.png", name: "titile01" },
+      { id: 2, path: "images/item2.png", name: "titile02" },
+      { id: 3, path: "images/item3.png", name: "titile03" },
+      { id: 4, path: "images/item4.png", name: "titile03" }
+    ];
+    function selectBg(id) {
+      dispatch({ type: "modal/selectId", selectId: id });
+    }
+    return /* @__PURE__ */ import_react21.default.createElement("div", {
+      className: "footer--select p-10 boxShadow"
+    }, /* @__PURE__ */ import_react21.default.createElement("ul", {
+      className: "list"
+    }, list.map((item) => {
+      return /* @__PURE__ */ import_react21.default.createElement("li", {
+        className: "item",
+        key: item.id,
+        onClick: (e) => {
+          selectBg(item.id);
+        }
+      }, /* @__PURE__ */ import_react21.default.createElement("div", {
+        className: "img-box"
+      }, /* @__PURE__ */ import_react21.default.createElement("p", {
+        className: "caption"
+      }, item.name), /* @__PURE__ */ import_react21.default.createElement("img", {
         src: item.path,
         alt: "",
         className: "img"
       })));
     })));
   }
-  var SideSelect_default = SideSelect;
-
-  // src/pages/Make.tsx
-  function Home2() {
-    return /* @__PURE__ */ import_react15.default.createElement("div", {
-      className: "content"
-    }, /* @__PURE__ */ import_react15.default.createElement(SideSelect_default, null), /* @__PURE__ */ import_react15.default.createElement(ContentSets_default, null));
-  }
-  var Make_default = Home2;
-
-  // src/components/Header.tsx
-  var import_react17 = __toESM(require_react());
-
-  // src/components/Nav.tsx
-  var import_react16 = __toESM(require_react());
-  function Nav() {
-    return /* @__PURE__ */ import_react16.default.createElement("div", {
-      className: "nav-outer"
-    }, /* @__PURE__ */ import_react16.default.createElement(Link, {
-      className: "link",
-      to: "/"
-    }, "home"), /* @__PURE__ */ import_react16.default.createElement(Link, {
-      className: "link",
-      to: "/about"
-    }, "about"), /* @__PURE__ */ import_react16.default.createElement(Link, {
-      className: "link",
-      to: "/make"
-    }, "make"));
-  }
-  var Nav_default = Nav;
-
-  // src/components/Header.tsx
-  function Header() {
-    return /* @__PURE__ */ import_react17.default.createElement("header", {
-      className: "header boxShadow"
-    }, /* @__PURE__ */ import_react17.default.createElement("div", {
-      className: "header__inner"
-    }, /* @__PURE__ */ import_react17.default.createElement(Nav_default, null)));
-  }
-  var Header_default = Header;
+  var FooterSelect_default = FooterSelect;
 
   // src/components/Footer.tsx
-  var import_react18 = __toESM(require_react());
   function Footer() {
-    return /* @__PURE__ */ import_react18.default.createElement("footer", {
+    return /* @__PURE__ */ import_react22.default.createElement("footer", {
       className: "footer"
-    }, /* @__PURE__ */ import_react18.default.createElement("div", {
+    }, /* @__PURE__ */ import_react22.default.createElement("div", {
       className: "footer__inner"
-    }, /* @__PURE__ */ import_react18.default.createElement("small", {
+    }, /* @__PURE__ */ import_react22.default.createElement(FooterSelect_default, null), /* @__PURE__ */ import_react22.default.createElement("small", {
       className: "copyright"
-    }, "\xA9 set flor")));
+    }, "\xA9 setFlowr")));
   }
   var Footer_default = Footer;
 
+  // src/layout/index.tsx
+  var Layout = ({ children }) => {
+    return /* @__PURE__ */ import_react23.default.createElement(import_react23.default.Fragment, null, /* @__PURE__ */ import_react23.default.createElement(Header_default, null), /* @__PURE__ */ import_react23.default.createElement("div", {
+      className: "wrapper"
+    }, children), /* @__PURE__ */ import_react23.default.createElement(Footer_default, null));
+  };
+  var layout_default = Layout;
+
   // src/App.tsx
   var App = () => {
-    return /* @__PURE__ */ import_react19.default.createElement(BrowserRouter, null, /* @__PURE__ */ import_react19.default.createElement(Header_default, null), /* @__PURE__ */ import_react19.default.createElement(Routes, null, /* @__PURE__ */ import_react19.default.createElement(Route, {
+    return /* @__PURE__ */ import_react24.default.createElement(BrowserRouter, null, /* @__PURE__ */ import_react24.default.createElement(Routes, null, /* @__PURE__ */ import_react24.default.createElement(Route, {
       path: "/",
-      element: /* @__PURE__ */ import_react19.default.createElement(Home_default, null)
-    }), /* @__PURE__ */ import_react19.default.createElement(Route, {
-      path: "/about",
-      element: /* @__PURE__ */ import_react19.default.createElement(About_default, null)
-    }), /* @__PURE__ */ import_react19.default.createElement(Route, {
-      path: "/make",
-      element: /* @__PURE__ */ import_react19.default.createElement(Make_default, null)
-    })), /* @__PURE__ */ import_react19.default.createElement(Footer_default, null));
+      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(Home_default, null))
+    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "about",
+      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(About_default, null))
+    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "make",
+      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(Make_default, null))
+    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "contents01",
+      element: /* @__PURE__ */ import_react24.default.createElement(Contents01_default, null)
+    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "contents02",
+      element: /* @__PURE__ */ import_react24.default.createElement(Contents02_default, null)
+    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "parts"
+    }, /* @__PURE__ */ import_react24.default.createElement(Route, {
+      path: "contents02",
+      element: /* @__PURE__ */ import_react24.default.createElement(Contents02_default, null)
+    }))));
   };
 
   // node_modules/redux/es/redux.js
@@ -26594,32 +26775,68 @@
     }
   }
 
+  // src/store/modules/data_action/card.ts
+  function initalCardState() {
+    return {
+      type: "",
+      cards: [
+        { id: 1, name: "title", x: 20, y: 20, content: "tetetetet", contentId: "1" },
+        { id: 2, name: "title", x: 40, y: 80, content: "tetetetet", contentId: "2" }
+      ],
+      card: {},
+      setId: "0",
+      deleteId: "0"
+    };
+  }
+  function cardReducer(state = initalCardState(), action) {
+    switch (action.type) {
+      case "card/add":
+        return __spreadProps(__spreadValues({}, state), {
+          cardView: true,
+          cards: action.cards
+        });
+      case "card/delete":
+        const items = state.cards.filter((item) => String(item.id) !== action.deleteId);
+        return __spreadProps(__spreadValues({}, state), {
+          cards: items
+        });
+      case "card/setId":
+        return __spreadProps(__spreadValues({}, state), {
+          setId: action.setId
+        });
+      default:
+        return state;
+    }
+  }
+
   // src/store/modules/data_action/modal.ts
-  function initalModalState() {
+  function initalCardState2() {
     return {
       modalView: false,
-      levelStateItem: [],
+      viewId: 0,
+      selectId: 1,
       isFetching: false,
       isloading: false
     };
   }
-  function modalReducer(state = initalModalState(), action) {
+  function modalReducer(state = initalCardState2(), action) {
     switch (action.type) {
       case "modal/open":
         return __spreadProps(__spreadValues({}, state), {
-          modalView: true
+          modalView: true,
+          viewId: action.viewId
         });
-      case "level/close":
+      case "modal/close":
         return __spreadProps(__spreadValues({}, state), {
           modalView: false
         });
-      case "level/dataget":
+      case "modal/dataget":
         return __spreadProps(__spreadValues({}, state), {
           isFetching: false
         });
-      case "level/dataerr":
+      case "modal/selectId":
         return __spreadProps(__spreadValues({}, state), {
-          isFetching: false
+          selectId: action.selectId
         });
       default:
         return state;
@@ -26629,7 +26846,8 @@
   // src/store/modules/reducer.ts
   var reducers = combineReducers({
     items: postReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    card: cardReducer
   });
   var rootReducer = (state, action) => {
     if ((action == null ? void 0 : action.type) === "") {
@@ -26648,9 +26866,9 @@
   var rootDom = document.getElementById("root");
   if (rootDom) {
     const root = (0, import_client.createRoot)(rootDom);
-    root.render(/* @__PURE__ */ import_react20.default.createElement(Provider_default, {
+    root.render(/* @__PURE__ */ import_react25.default.createElement(Provider_default, {
       store: setupStore
-    }, /* @__PURE__ */ import_react20.default.createElement(App, null)));
+    }, /* @__PURE__ */ import_react25.default.createElement(App, null)));
   }
 })();
 /*

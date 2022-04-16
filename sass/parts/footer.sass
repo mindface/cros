@@ -1,9 +1,17 @@
+@use './variable' as *
 
 .footer
   position: fixed
   left: 0
   bottom: 0
-  height: 40px
   width: 100%
   &__inner
+    background-color: $white-color
     text-align: center
+  &--select
+    .list
+      display: flex
+      justify-content: end
+    .item
+      max-height: 120px
+      width: 120px

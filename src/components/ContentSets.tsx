@@ -1,42 +1,47 @@
-import React, { useEffect } from "react";
-import { useSelector, useStore, useDispatch } from "react-redux";
+import React, { useEffect,useMemo,useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import Card from "./Card";
+import * as modalCard from "../models/card";
+import { SelectorRootStore } from "../store";
 
 function ContentSets(){
-  const store = useStore();
-  const dispatch = useDispatch();
-  const l = useSelector((state) => {
-    console.log(store.getState())
-    return state
+  const [list,listSet] = useState<modalCard.Card|any>([]);
+  const [_setMap,_setMapSet] = useState(true);
+  const selectId = useSelector((state:SelectorRootStore) => {
+    return state.base.modal.selectId
   })
-  const list = [
-    {id:1, name: "title", x: 20, y: 20, content: "tetetetet" },
-    {id:2, name: "title", x: 40, y: 80, content: "tetetetet" },
-  ]
+  const cardsList = useSelector((state:SelectorRootStore) => {
+      console.log(state.base.card.cards)
+    return state.base.card.cards;
+  })
+
+  function setMap(){
+    _setMapSet(false);
+    setTimeout(() => {
+      _setMapSet(true);
+    },400)
+  }
 
   function modalAction(id:number){
-    dispatch({type:'modal/open'});
-    console.log(l.base)
   }
 
-  function mouseDown(e:Event) {
-  }
+  function mouseDown(e:Event) {}
 
-  function mouseMove(e:Event) {
-    
-  }
+  function mouseMove(e:Event) {}
 
-  function mouseOut(e:Event) {
-    
-  }
+  function mouseOut(e:Event) {}
+
+  const CardsList = useMemo(
+    () => cardsList.map((item:any) => (
+     <Card card={item} key={item.id} />
+    )
+  ),[cardsList])
 
   return (
-   <div className="content--select p-10">
-     {list.map((item) => {
-       return (
-        <Card card={item} key={item.id} />
-       )
-     })}
+   <div className="box--select p-10" style={{backgroundImage:`url(images/item${selectId}.png)`}} >
+     { cardsList.map((item:any) => (
+      <Card card={item} key={item.id} />
+     ))}
    </div>
   )
 }

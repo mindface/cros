@@ -1,47 +1,51 @@
 import axios from 'axios'
 import { Action, Dispatch } from 'redux'
-import { Levels } from '../../../models/levels'
 
 export interface ModalAction extends Action {
   type: string;
   modalView: boolean;
+  viewId: number;
+  selectId: number;
 }
 
 export interface ModalActionFailure extends Action {
   type: string;
-  err: string
+  err: string;
+  id: string;
 }
 
-export function initalModalState():any  {
+export function initalCardState():any  {
   return {
     modalView: false,
-    levelStateItem: [],
+    viewId: 0,
+    selectId: 1,
     isFetching: false,
     isloading: false
   }
 }
 
-export function modalReducer(state:any = initalModalState(), action:ModalAction) {
+export function modalReducer(state:any = initalCardState(), action:ModalAction) {
   switch (action.type) {
     case 'modal/open':
       return {
        ...state,
-         modalView: true
+         modalView: true,
+         viewId: action.viewId
        }
-    case 'level/close':
+    case 'modal/close':
       return {
         ...state,
         modalView: false
         }
-     case 'level/dataget':
+     case 'modal/dataget':
       return {
         ...state,
           isFetching: false,
         }
-    case 'level/dataerr':
+    case 'modal/selectId':
       return {
         ...state,
-          isFetching: false,
+         selectId: action.selectId,
         }
       // case 'level/dataupdate':
       //   return　axios.patch(`http://localhost:3003/api/levels/${action['id']}`)

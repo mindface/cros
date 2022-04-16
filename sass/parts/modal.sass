@@ -1,0 +1,31 @@
+@use './variable' as *
+
+.open-modal
+  height: 100vh
+  overflow: hidden
+
+.modal
+  position: fixed
+  z-index: 10
+  top: 0
+  left: 0
+  display: none
+  height: 100vh
+  width: 100vw
+  background-color: $bl-op016
+  text-align: center
+  &--inner
+    padding: 20px
+  &.view
+    display: block
+  .iframe
+    height: 90vh
+    width: 100%
+    border: none
+  .close
+    position: absolute
+    top: 10px
+    right: 20px
+    padding: 10px
+    background-color: $white-color
+    font-size: 1.4rem
