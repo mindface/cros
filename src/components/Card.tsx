@@ -13,6 +13,7 @@ function Card(props:Props){
   const [infoView,infoViewSet] = useState(false);
   const [_x,_xSet] = useState(0);
   const [_y,_ySet] = useState(0);
+  const boxwidth = 60;
 
   function modalAction(id:number){
     dispatch({type:'modal/open'});
@@ -25,12 +26,13 @@ function Card(props:Props){
   function mouseMove(e:MouseEvent) {
     if(moveTg){
       const element = e.target as any;
+      
       const left = element.getBoundingClientRect().left;
       const top = element.getBoundingClientRect().top;
-      const x = (e.clientX - 20) - 240;
-      const y = (e.clientY - (20 + 30*(card.id-1))) - 45;
+      const x = (e.clientX - boxwidth/2) - 240;
+      const y = (e.clientY - (20 + boxwidth*(card.id-1))) - 55;
       console.log(left)
-      console.log(e.clientX)
+      console.log(e)
       _xSet(x)
       _ySet(y)
     }

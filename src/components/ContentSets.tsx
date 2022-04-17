@@ -6,21 +6,12 @@ import { SelectorRootStore } from "../store";
 
 function ContentSets(){
   const [list,listSet] = useState<modalCard.Card|any>([]);
-  const [_setMap,_setMapSet] = useState(true);
   const selectId = useSelector((state:SelectorRootStore) => {
     return state.base.modal.selectId
   })
   const cardsList = useSelector((state:SelectorRootStore) => {
-      console.log(state.base.card.cards)
     return state.base.card.cards;
   })
-
-  function setMap(){
-    _setMapSet(false);
-    setTimeout(() => {
-      _setMapSet(true);
-    },400)
-  }
 
   function modalAction(id:number){
   }

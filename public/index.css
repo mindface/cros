@@ -396,9 +396,11 @@ li {
 }
 .box--select .card {
   position: relative;
+  z-index: 2;
   height: 60px;
   max-width: 60px;
   width: 100%;
+  background-color: #fff;
 }
 .box--select .card .btn {
   display: flex;

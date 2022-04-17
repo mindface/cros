@@ -2304,9 +2304,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React20 = require_react();
+          var React24 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React20.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React24.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3702,7 +3702,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React20.Children.forEach(props.children, function(child) {
+                  React24.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11249,7 +11249,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React20.Component().refs;
+          var emptyRefsObject = new React24.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -24771,11 +24771,11 @@
   });
 
   // src/index.tsx
-  var import_react25 = __toESM(require_react());
+  var import_react29 = __toESM(require_react());
   var import_client = __toESM(require_client());
 
   // src/App.tsx
-  var import_react24 = __toESM(require_react());
+  var import_react28 = __toESM(require_react());
 
   // node_modules/react-router-dom/index.js
   var import_react2 = __toESM(require_react());
@@ -26085,6 +26085,7 @@
     const [infoView, infoViewSet] = (0, import_react12.useState)(false);
     const [_x, _xSet] = (0, import_react12.useState)(0);
     const [_y, _ySet] = (0, import_react12.useState)(0);
+    const boxwidth = 60;
     function modalAction(id) {
       dispatch({ type: "modal/open" });
     }
@@ -26096,10 +26097,10 @@
         const element = e.target;
         const left = element.getBoundingClientRect().left;
         const top = element.getBoundingClientRect().top;
-        const x = e.clientX - 20 - 240;
-        const y = e.clientY - (20 + 30 * (card.id - 1)) - 45;
+        const x = e.clientX - boxwidth / 2 - 240;
+        const y = e.clientY - (20 + boxwidth * (card.id - 1)) - 55;
         console.log(left);
-        console.log(e.clientX);
+        console.log(e);
         _xSet(x);
         _ySet(y);
       }
@@ -26144,20 +26145,12 @@
   // src/components/ContentSets.tsx
   function ContentSets() {
     const [list, listSet] = (0, import_react13.useState)([]);
-    const [_setMap, _setMapSet] = (0, import_react13.useState)(true);
     const selectId = useSelector((state) => {
       return state.base.modal.selectId;
     });
     const cardsList = useSelector((state) => {
-      console.log(state.base.card.cards);
       return state.base.card.cards;
     });
-    function setMap() {
-      _setMapSet(false);
-      setTimeout(() => {
-        _setMapSet(true);
-      }, 400);
-    }
     function modalAction(id) {
     }
     function mouseDown(e) {
@@ -26189,7 +26182,9 @@
       { id: 1, path: "images/item1.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C401" },
       { id: 2, path: "images/item2.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C402" },
       { id: 3, path: "images/item3.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C403" },
-      { id: 4, path: "images/item4.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C404" }
+      { id: 4, path: "images/item4.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C404" },
+      { id: 5, path: "images/item5.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C405" },
+      { id: 6, path: "images/item6.png", name: "\u9078\u629E\u30B3\u30F3\u30C6\u30F3\u30C406" }
     ];
     const cardsList = useSelector((state) => {
       return state.base.card.cards;
@@ -26201,7 +26196,7 @@
         x: 40,
         y: 100,
         content: "tetetetet",
-        contentId: "2"
+        contentId: String(contentId)
       };
       const list2 = cardsList;
       list2.push(cardData);
@@ -26209,9 +26204,6 @@
       setTimeout(() => {
         dispatch({ type: "card/add", cards: list2 });
       }, 600);
-    }
-    function selectContent(id) {
-      contentIdSet(id);
     }
     return /* @__PURE__ */ import_react14.default.createElement("div", {
       className: "side p-10 boxShadow"
@@ -26227,7 +26219,7 @@
         key: item.id,
         className: item.id === contentId ? "item active" : "item",
         onClick: (e) => {
-          selectContent(item.id);
+          contentIdSet(item.id);
         }
       }, /* @__PURE__ */ import_react14.default.createElement("div", {
         className: "img-box"
@@ -26311,30 +26303,90 @@
   }
   var Contents02_default = Contents02;
 
+  // src/pages/parts/Contents03.tsx
+  var import_react19 = __toESM(require_react());
+  function Contents022() {
+    return /* @__PURE__ */ import_react19.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react19.default.createElement("div", {
+      className: "en"
+    }, "Information level 03"), /* @__PURE__ */ import_react19.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react19.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents03_default = Contents022;
+
+  // src/pages/parts/Contents04.tsx
+  var import_react20 = __toESM(require_react());
+  function Contents023() {
+    return /* @__PURE__ */ import_react20.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react20.default.createElement("div", {
+      className: "en"
+    }, "Information level 04"), /* @__PURE__ */ import_react20.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react20.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents04_default = Contents023;
+
+  // src/pages/parts/Contents05.tsx
+  var import_react21 = __toESM(require_react());
+  function Contents024() {
+    return /* @__PURE__ */ import_react21.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react21.default.createElement("div", {
+      className: "en"
+    }, "Information level 05"), /* @__PURE__ */ import_react21.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react21.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents05_default = Contents024;
+
+  // src/pages/parts/Contents06.tsx
+  var import_react22 = __toESM(require_react());
+  function Contents025() {
+    return /* @__PURE__ */ import_react22.default.createElement("div", {
+      className: "frame-content p-10"
+    }, /* @__PURE__ */ import_react22.default.createElement("div", {
+      className: "en"
+    }, "Information level 06"), /* @__PURE__ */ import_react22.default.createElement("h3", {
+      className: "title"
+    }, "- \u60C5\u5831\u30EC\u30D9\u30EB -"), /* @__PURE__ */ import_react22.default.createElement("div", {
+      className: "en text"
+    }, "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage."));
+  }
+  var Contents06_default = Contents025;
+
   // src/layout/index.tsx
-  var import_react23 = __toESM(require_react());
+  var import_react27 = __toESM(require_react());
 
   // src/components/Header.tsx
-  var import_react20 = __toESM(require_react());
+  var import_react24 = __toESM(require_react());
 
   // src/components/Nav.tsx
-  var import_react19 = __toESM(require_react());
+  var import_react23 = __toESM(require_react());
   function Nav() {
-    return /* @__PURE__ */ import_react19.default.createElement("div", {
+    return /* @__PURE__ */ import_react23.default.createElement("div", {
       className: "nav-outer"
-    }, /* @__PURE__ */ import_react19.default.createElement(Link, {
+    }, /* @__PURE__ */ import_react23.default.createElement(Link, {
       className: "link",
       to: "/"
-    }, "home"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+    }, "home"), /* @__PURE__ */ import_react23.default.createElement(Link, {
       className: "link",
       to: "/about"
-    }, "about"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+    }, "about"), /* @__PURE__ */ import_react23.default.createElement(Link, {
       className: "link",
       to: "/make"
-    }, "make"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+    }, "make"), /* @__PURE__ */ import_react23.default.createElement(Link, {
       className: "link",
       to: "/parts/contents01"
-    }, "contents01"), /* @__PURE__ */ import_react19.default.createElement(Link, {
+    }, "contents01"), /* @__PURE__ */ import_react23.default.createElement(Link, {
       className: "link",
       to: "/parts/contents02"
     }, "contents02"));
@@ -26343,19 +26395,19 @@
 
   // src/components/Header.tsx
   function Header() {
-    return /* @__PURE__ */ import_react20.default.createElement("header", {
+    return /* @__PURE__ */ import_react24.default.createElement("header", {
       className: "header boxShadow"
-    }, /* @__PURE__ */ import_react20.default.createElement("div", {
+    }, /* @__PURE__ */ import_react24.default.createElement("div", {
       className: "header__inner"
-    }, /* @__PURE__ */ import_react20.default.createElement(Nav_default, null)));
+    }, /* @__PURE__ */ import_react24.default.createElement(Nav_default, null)));
   }
   var Header_default = Header;
 
   // src/components/Footer.tsx
-  var import_react22 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
 
   // src/components/FooterSelect.tsx
-  var import_react21 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
   function FooterSelect() {
     const dispatch = useDispatch();
     const list = [
@@ -26367,22 +26419,22 @@
     function selectBg(id) {
       dispatch({ type: "modal/selectId", selectId: id });
     }
-    return /* @__PURE__ */ import_react21.default.createElement("div", {
+    return /* @__PURE__ */ import_react25.default.createElement("div", {
       className: "footer--select p-10 boxShadow"
-    }, /* @__PURE__ */ import_react21.default.createElement("ul", {
+    }, /* @__PURE__ */ import_react25.default.createElement("ul", {
       className: "list"
     }, list.map((item) => {
-      return /* @__PURE__ */ import_react21.default.createElement("li", {
+      return /* @__PURE__ */ import_react25.default.createElement("li", {
         className: "item",
         key: item.id,
         onClick: (e) => {
           selectBg(item.id);
         }
-      }, /* @__PURE__ */ import_react21.default.createElement("div", {
+      }, /* @__PURE__ */ import_react25.default.createElement("div", {
         className: "img-box"
-      }, /* @__PURE__ */ import_react21.default.createElement("p", {
+      }, /* @__PURE__ */ import_react25.default.createElement("p", {
         className: "caption"
-      }, item.name), /* @__PURE__ */ import_react21.default.createElement("img", {
+      }, item.name), /* @__PURE__ */ import_react25.default.createElement("img", {
         src: item.path,
         alt: "",
         className: "img"
@@ -26393,11 +26445,11 @@
 
   // src/components/Footer.tsx
   function Footer() {
-    return /* @__PURE__ */ import_react22.default.createElement("footer", {
+    return /* @__PURE__ */ import_react26.default.createElement("footer", {
       className: "footer"
-    }, /* @__PURE__ */ import_react22.default.createElement("div", {
+    }, /* @__PURE__ */ import_react26.default.createElement("div", {
       className: "footer__inner"
-    }, /* @__PURE__ */ import_react22.default.createElement(FooterSelect_default, null), /* @__PURE__ */ import_react22.default.createElement("small", {
+    }, /* @__PURE__ */ import_react26.default.createElement(FooterSelect_default, null), /* @__PURE__ */ import_react26.default.createElement("small", {
       className: "copyright"
     }, "\xA9 setFlowr")));
   }
@@ -26405,34 +26457,46 @@
 
   // src/layout/index.tsx
   var Layout = ({ children }) => {
-    return /* @__PURE__ */ import_react23.default.createElement(import_react23.default.Fragment, null, /* @__PURE__ */ import_react23.default.createElement(Header_default, null), /* @__PURE__ */ import_react23.default.createElement("div", {
+    return /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(Header_default, null), /* @__PURE__ */ import_react27.default.createElement("div", {
       className: "wrapper"
-    }, children), /* @__PURE__ */ import_react23.default.createElement(Footer_default, null));
+    }, children), /* @__PURE__ */ import_react27.default.createElement(Footer_default, null));
   };
   var layout_default = Layout;
 
   // src/App.tsx
   var App = () => {
-    return /* @__PURE__ */ import_react24.default.createElement(BrowserRouter, null, /* @__PURE__ */ import_react24.default.createElement(Routes, null, /* @__PURE__ */ import_react24.default.createElement(Route, {
+    return /* @__PURE__ */ import_react28.default.createElement(BrowserRouter, null, /* @__PURE__ */ import_react28.default.createElement(Routes, null, /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "/",
-      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(Home_default, null))
-    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      element: /* @__PURE__ */ import_react28.default.createElement(layout_default, null, /* @__PURE__ */ import_react28.default.createElement(Home_default, null))
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "about",
-      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(About_default, null))
-    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      element: /* @__PURE__ */ import_react28.default.createElement(layout_default, null, /* @__PURE__ */ import_react28.default.createElement(About_default, null))
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "make",
-      element: /* @__PURE__ */ import_react24.default.createElement(layout_default, null, /* @__PURE__ */ import_react24.default.createElement(Make_default, null))
-    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      element: /* @__PURE__ */ import_react28.default.createElement(layout_default, null, /* @__PURE__ */ import_react28.default.createElement(Make_default, null))
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "contents01",
-      element: /* @__PURE__ */ import_react24.default.createElement(Contents01_default, null)
-    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents01_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "contents02",
-      element: /* @__PURE__ */ import_react24.default.createElement(Contents02_default, null)
-    }), /* @__PURE__ */ import_react24.default.createElement(Route, {
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents02_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
+      path: "contents03",
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents03_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
+      path: "contents04",
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents04_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
+      path: "contents05",
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents05_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
+      path: "contents06",
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents06_default, null)
+    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "parts"
-    }, /* @__PURE__ */ import_react24.default.createElement(Route, {
+    }, /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "contents02",
-      element: /* @__PURE__ */ import_react24.default.createElement(Contents02_default, null)
+      element: /* @__PURE__ */ import_react28.default.createElement(Contents02_default, null)
     }))));
   };
 
@@ -26866,9 +26930,9 @@
   var rootDom = document.getElementById("root");
   if (rootDom) {
     const root = (0, import_client.createRoot)(rootDom);
-    root.render(/* @__PURE__ */ import_react25.default.createElement(Provider_default, {
+    root.render(/* @__PURE__ */ import_react29.default.createElement(Provider_default, {
       store: setupStore
-    }, /* @__PURE__ */ import_react25.default.createElement(App, null)));
+    }, /* @__PURE__ */ import_react29.default.createElement(App, null)));
   }
 })();
 /*
