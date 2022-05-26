@@ -23,15 +23,15 @@ function Card(props:Props){
     moveTgSet(true);
   }
 
-  function mouseMove(e:MouseEvent) {
+  function mouseMove(e:React.MouseEvent) {
     if(moveTg){
       const element = e.target as any;
-      
+
       const left = element.getBoundingClientRect().left;
       const top = element.getBoundingClientRect().top;
       const x = (e.clientX - boxwidth/2) - 240;
       const y = (e.clientY - (20 + boxwidth*(card.id-1))) - 55;
-      console.log(left)
+      console.log(y)
       console.log(e)
       _xSet(x)
       _ySet(y)
@@ -41,11 +41,11 @@ function Card(props:Props){
   function mouseOut() {
     moveTgSet(false);
     document.body.removeEventListener('mousedown',mouseDown)
-    document.body.removeEventListener('mousemove',mouseMove)
+    document.body.removeEventListener('mousemove',() => {})
     document.body.removeEventListener('mouseup',mouseOut)
   }
 
-  function viewIng(e:MouseEvent){
+  function viewIng(e:React.MouseEvent){
     e.preventDefault();
     e.stopPropagation();
     dispatch({type:'modal/open',viewId:card.id});
@@ -57,15 +57,16 @@ function Card(props:Props){
     <div
       className={`card p-10 boxShadow radius card${card.id}`}
       onMouseDown={(e) => mouseDown()}
-      onMouseMove={(e:MouseEvent) => {mouseMove(e)}}
+      onMouseMove={(e:React.MouseEvent) => {mouseMove(e)}}
       onMouseUp={(e) => {mouseOut()}}      
       style={{left:`${_x}px`,top:`${_y}px`}}
     >
-      <div className="btn btn--control boxShadow radius"
-        onClick={(e:MouseEvent) => viewIng(e)}> + </div>
-      <div className={infoView ? 'info-box boxShadow view':'info-box boxShadow'}>
+      <div className="btn-box">
+        <div className="btn boxShadow radius p-5"
+          onClick={(e:React.MouseEvent) => viewIng(e)}>view</div>
+      </div>
+      <div className='info-box'>
         <h3 className="title" onClick={(e) => modalAction(card.id)} >{card.name}</h3>
-        <div className="view-content">{card.content}</div>
       </div>
     </div>
   )

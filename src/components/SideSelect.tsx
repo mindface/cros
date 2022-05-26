@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useStore, useDispatch } from "react-redux";
-import { SelectorRootStore } from "../store";
+import { RootStore } from "../store/modules/reducer";
 
 function SideSelect(){
   const dispatch = useDispatch();
@@ -14,13 +14,13 @@ function SideSelect(){
     {id:6,path:"images/item6.png", name: "選択コンテンツ06"}
   ]
 
-  const cardsList = useSelector((state:SelectorRootStore) => {
+  const cardsList = useSelector((state:{ base:RootStore }) => {
   return state.base.card.cards;
 })
 
   function addContent(){
     const cardData = {
-      id:0, name: "title", x: 40, y: 100, content: "tetetetet", contentId : String(contentId)
+      id:(cardsList.length + 1), name: "title", x: 40, y: 100, content: "tetetetet", contentId : String(contentId)
     }
     const list = cardsList;
     list.push(cardData);
@@ -45,7 +45,7 @@ function SideSelect(){
           <li
             key={item.id}
             className={item.id === contentId ?'item active': 'item'}
-            onClick={(e) => {contentIdSet(item.id)}}
+            onClick={() => {contentIdSet(item.id)}}
           >
             <div className="img-box">
               <p className="caption">{item.name}</p>

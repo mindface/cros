@@ -2,14 +2,14 @@ import React, { useEffect,useMemo,useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import Card from "./Card";
 import * as modalCard from "../models/card";
-import { SelectorRootStore } from "../store";
+import { RootStore } from "../store/modules/reducer";
 
 function ContentSets(){
   const [list,listSet] = useState<modalCard.Card|any>([]);
-  const selectId = useSelector((state:SelectorRootStore) => {
+  const selectId = useSelector((state:{base:RootStore}) => {
     return state.base.modal.selectId
   })
-  const cardsList = useSelector((state:SelectorRootStore) => {
+  const cardsList = useSelector((state:{base:RootStore}) => {
     return state.base.card.cards;
   })
 

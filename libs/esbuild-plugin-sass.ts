@@ -1,7 +1,7 @@
 import { Plugin } from "esbuild";
 import sass from "sass";
 
-export const sassPlugin = (options?: sass.Options): Plugin => ({
+export const sassPlugin = (options?: any): Plugin => ({
   name: 'esbuild-plugin-sass',
   setup(build) {
    build.onLoad({ filter: /\.s[ac]ss$/ }, ({ path }) => {

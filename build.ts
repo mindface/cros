@@ -32,5 +32,6 @@ build({
     ".sass":"css"
   }
 }).then((result) => {
+ console.log()
  console.log('/////////////////////// END')
 }).catch(() => { process.exit(1) })

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useStore, useDispatch } from "react-redux";
-import { SelectorRootStore } from "../store";
+import { RootStore } from "../store/modules/reducer";
 
 function ContentSets(){
   const store = useStore();
@@ -8,7 +8,7 @@ function ContentSets(){
   const modalSwitch = useSelector(() => {
     return store.getState().base.modal.modalView
   })
-  const setId = useSelector((state:SelectorRootStore) => {
+  const setId = useSelector((state:{base: RootStore}) => {
     return state.base.card.setId
   })
   function closeAction(){
@@ -22,7 +22,7 @@ function ContentSets(){
        <button className='close boxShadow radius' onClick={() => closeAction()} >close</button>
        <h3 className="title">view</h3>
        <div className="box">
-         <iframe src={`/contents0${setId}`} className='iframe'></iframe>
+         <iframe src={`/#/contents0${setId}`} className='iframe'></iframe>
        </div>
      </div>}
    </div>

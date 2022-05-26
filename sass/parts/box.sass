@@ -14,13 +14,27 @@
       max-width: 60px
       width: 100%
       background-color: $white-color
+      &:hover
+        cursor: grab
+        .btn
+          &-box
+            display: block
+      &:active
+        cursor: grabbing
       .btn
         display: flex
         justify-content: center
         align-items: center
-        width: 30px
-        height: 30px
-        background-color: $white-color
+        padding: 5px
+        color: $white-color
+        background-color: $base-color
+        font-size: 12px
+        cursor: pointer
+        &-box
+          display: none
+          position: absolute
+          top: 100%
+          left: 0
         &--control
           font-size: 2rem
           &:hover
@@ -35,11 +49,9 @@
             display: block
       .info
         &-box
-          display: none
-          position: absolute
-          top: 0
-          left: 100%
-          height: 240px
-          width: 320px
-          padding: 10px
           background-color: $white-color
+          overflow: hidden
+          .title
+            display: block
+            text-overflow: ellipsis
+            overflow: hidden

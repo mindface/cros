@@ -24819,15 +24819,16 @@
     }
   }
   var BeforeUnloadEventType = "beforeunload";
+  var HashChangeEventType = "hashchange";
   var PopStateEventType = "popstate";
-  function createBrowserHistory(options) {
+  function createHashHistory(options) {
     if (options === void 0) {
       options = {};
     }
-    var _options = options, _options$window = _options.window, window2 = _options$window === void 0 ? document.defaultView : _options$window;
+    var _options2 = options, _options2$window = _options2.window, window2 = _options2$window === void 0 ? document.defaultView : _options2$window;
     var globalHistory = window2.history;
     function getIndexAndLocation() {
-      var _window$location = window2.location, pathname = _window$location.pathname, search = _window$location.search, hash = _window$location.hash;
+      var _parsePath = parsePath(window2.location.hash.substr(1)), _parsePath$pathname = _parsePath.pathname, pathname = _parsePath$pathname === void 0 ? "/" : _parsePath$pathname, _parsePath$search = _parsePath.search, search = _parsePath$search === void 0 ? "" : _parsePath$search, _parsePath$hash = _parsePath.hash, hash = _parsePath$hash === void 0 ? "" : _parsePath$hash;
       var state = globalHistory.state || {};
       return [state.idx, readOnly({
         pathname,
@@ -24844,7 +24845,7 @@
         blockedPopTx = null;
       } else {
         var nextAction = Action.Pop;
-        var _getIndexAndLocation = getIndexAndLocation(), nextIndex = _getIndexAndLocation[0], nextLocation = _getIndexAndLocation[1];
+        var _getIndexAndLocation4 = getIndexAndLocation(), nextIndex = _getIndexAndLocation4[0], nextLocation = _getIndexAndLocation4[1];
         if (blockers.length) {
           if (nextIndex != null) {
             var delta = index - nextIndex;
@@ -24867,8 +24868,14 @@
       }
     }
     window2.addEventListener(PopStateEventType, handlePop);
+    window2.addEventListener(HashChangeEventType, function() {
+      var _getIndexAndLocation5 = getIndexAndLocation(), nextLocation = _getIndexAndLocation5[1];
+      if (createPath(nextLocation) !== createPath(location)) {
+        handlePop();
+      }
+    });
     var action = Action.Pop;
-    var _getIndexAndLocation2 = getIndexAndLocation(), index = _getIndexAndLocation2[0], location = _getIndexAndLocation2[1];
+    var _getIndexAndLocation6 = getIndexAndLocation(), index = _getIndexAndLocation6[0], location = _getIndexAndLocation6[1];
     var listeners = createEvents();
     var blockers = createEvents();
     if (index == null) {
@@ -24877,8 +24884,18 @@
         idx: index
       }), "");
     }
+    function getBaseHref() {
+      var base = document.querySelector("base");
+      var href = "";
+      if (base && base.getAttribute("href")) {
+        var url = window2.location.href;
+        var hashIndex = url.indexOf("#");
+        href = hashIndex === -1 ? url : url.slice(0, hashIndex);
+      }
+      return href;
+    }
     function createHref(to) {
-      return typeof to === "string" ? to : createPath(to);
+      return getBaseHref() + "#" + (typeof to === "string" ? to : createPath(to));
     }
     function getNextLocation(to, state) {
       if (state === void 0) {
@@ -24909,9 +24926,9 @@
     }
     function applyTx(nextAction) {
       action = nextAction;
-      var _getIndexAndLocation3 = getIndexAndLocation();
-      index = _getIndexAndLocation3[0];
-      location = _getIndexAndLocation3[1];
+      var _getIndexAndLocation7 = getIndexAndLocation();
+      index = _getIndexAndLocation7[0];
+      location = _getIndexAndLocation7[1];
       listeners.call({
         action,
         location
@@ -24923,8 +24940,9 @@
       function retry() {
         push(to, state);
       }
+      true ? warning(nextLocation.pathname.charAt(0) === "/", "Relative pathnames are not supported in hash history.push(" + JSON.stringify(to) + ")") : void 0;
       if (allowTx(nextAction, nextLocation, retry)) {
-        var _getHistoryStateAndUr = getHistoryStateAndUrl(nextLocation, index + 1), historyState = _getHistoryStateAndUr[0], url = _getHistoryStateAndUr[1];
+        var _getHistoryStateAndUr3 = getHistoryStateAndUrl(nextLocation, index + 1), historyState = _getHistoryStateAndUr3[0], url = _getHistoryStateAndUr3[1];
         try {
           globalHistory.pushState(historyState, "", url);
         } catch (error) {
@@ -24939,8 +24957,9 @@
       function retry() {
         replace(to, state);
       }
+      true ? warning(nextLocation.pathname.charAt(0) === "/", "Relative pathnames are not supported in hash history.replace(" + JSON.stringify(to) + ")") : void 0;
       if (allowTx(nextAction, nextLocation, retry)) {
-        var _getHistoryStateAndUr2 = getHistoryStateAndUrl(nextLocation, index), historyState = _getHistoryStateAndUr2[0], url = _getHistoryStateAndUr2[1];
+        var _getHistoryStateAndUr4 = getHistoryStateAndUrl(nextLocation, index), historyState = _getHistoryStateAndUr4[0], url = _getHistoryStateAndUr4[1];
         globalHistory.replaceState(historyState, "", url);
         applyTx(nextAction);
       }
@@ -25573,15 +25592,15 @@
   }
   var _excluded = ["onClick", "reloadDocument", "replace", "state", "target", "to"];
   var _excluded2 = ["aria-current", "caseSensitive", "className", "end", "style", "to", "children"];
-  function BrowserRouter(_ref) {
+  function HashRouter(_ref2) {
     let {
       basename,
       children,
       window: window2
-    } = _ref;
+    } = _ref2;
     let historyRef = (0, import_react2.useRef)();
     if (historyRef.current == null) {
-      historyRef.current = createBrowserHistory({
+      historyRef.current = createHashHistory({
         window: window2
       });
     }
@@ -26099,7 +26118,7 @@
         const top = element.getBoundingClientRect().top;
         const x = e.clientX - boxwidth / 2 - 240;
         const y = e.clientY - (20 + boxwidth * (card.id - 1)) - 55;
-        console.log(left);
+        console.log(y);
         console.log(e);
         _xSet(x);
         _ySet(y);
@@ -26108,7 +26127,8 @@
     function mouseOut() {
       moveTgSet(false);
       document.body.removeEventListener("mousedown", mouseDown);
-      document.body.removeEventListener("mousemove", mouseMove);
+      document.body.removeEventListener("mousemove", () => {
+      });
       document.body.removeEventListener("mouseup", mouseOut);
     }
     function viewIng(e) {
@@ -26129,16 +26149,16 @@
       },
       style: { left: `${_x}px`, top: `${_y}px` }
     }, /* @__PURE__ */ import_react12.default.createElement("div", {
-      className: "btn btn--control boxShadow radius",
+      className: "btn-box"
+    }, /* @__PURE__ */ import_react12.default.createElement("div", {
+      className: "btn boxShadow radius p-5",
       onClick: (e) => viewIng(e)
-    }, " + "), /* @__PURE__ */ import_react12.default.createElement("div", {
-      className: infoView ? "info-box boxShadow view" : "info-box boxShadow"
+    }, "view")), /* @__PURE__ */ import_react12.default.createElement("div", {
+      className: "info-box"
     }, /* @__PURE__ */ import_react12.default.createElement("h3", {
       className: "title",
       onClick: (e) => modalAction(card.id)
-    }, card.name), /* @__PURE__ */ import_react12.default.createElement("div", {
-      className: "view-content"
-    }, card.content)));
+    }, card.name)));
   }
   var Card_default = Card;
 
@@ -26191,7 +26211,7 @@
     });
     function addContent() {
       const cardData = {
-        id: 0,
+        id: cardsList.length + 1,
         name: "title",
         x: 40,
         y: 100,
@@ -26218,7 +26238,7 @@
       return /* @__PURE__ */ import_react14.default.createElement("li", {
         key: item.id,
         className: item.id === contentId ? "item active" : "item",
-        onClick: (e) => {
+        onClick: () => {
           contentIdSet(item.id);
         }
       }, /* @__PURE__ */ import_react14.default.createElement("div", {
@@ -26257,7 +26277,7 @@
     }, "view"), /* @__PURE__ */ import_react15.default.createElement("div", {
       className: "box"
     }, /* @__PURE__ */ import_react15.default.createElement("iframe", {
-      src: `/contents0${setId}`,
+      src: `/#/contents0${setId}`,
       className: "iframe"
     }))));
   }
@@ -26465,7 +26485,7 @@
 
   // src/App.tsx
   var App = () => {
-    return /* @__PURE__ */ import_react28.default.createElement(BrowserRouter, null, /* @__PURE__ */ import_react28.default.createElement(Routes, null, /* @__PURE__ */ import_react28.default.createElement(Route, {
+    return /* @__PURE__ */ import_react28.default.createElement(HashRouter, null, /* @__PURE__ */ import_react28.default.createElement(Routes, null, /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "/",
       element: /* @__PURE__ */ import_react28.default.createElement(layout_default, null, /* @__PURE__ */ import_react28.default.createElement(Home_default, null))
     }), /* @__PURE__ */ import_react28.default.createElement(Route, {
@@ -26492,13 +26512,9 @@
     }), /* @__PURE__ */ import_react28.default.createElement(Route, {
       path: "contents06",
       element: /* @__PURE__ */ import_react28.default.createElement(Contents06_default, null)
-    }), /* @__PURE__ */ import_react28.default.createElement(Route, {
-      path: "parts"
-    }, /* @__PURE__ */ import_react28.default.createElement(Route, {
-      path: "contents02",
-      element: /* @__PURE__ */ import_react28.default.createElement(Contents02_default, null)
-    }))));
+    })));
   };
+  var App_default = App;
 
   // node_modules/redux/es/redux.js
   var $$observable = function() {
@@ -26907,11 +26923,87 @@
     }
   }
 
+  // src/store/modules/data_action/setState/concept.json
+  var concept_default = [
+    {
+      id: 1,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    },
+    {
+      id: 2,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    },
+    {
+      id: 3,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    },
+    {
+      id: 4,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    },
+    {
+      id: 5,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    },
+    {
+      id: 6,
+      title: "- \u60C5\u5831\u30EC\u30D9\u30EB -",
+      body: "Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.",
+      info: ""
+    }
+  ];
+
+  // src/store/modules/data_action/concept.ts
+  function initalConceptState() {
+    return {
+      concepts: concept_default,
+      concept: {
+        title: "",
+        body: "",
+        info: ""
+      }
+    };
+  }
+  function conceptReducer(state = initalConceptState(), action) {
+    switch (action.type) {
+      case "concept/get":
+        return __spreadProps(__spreadValues({}, state), {
+          modalView: true,
+          concepts: action.concepts
+        });
+      case "concept/set":
+        return __spreadProps(__spreadValues({}, state), {
+          modalView: false
+        });
+      case "concept/dataget":
+        return __spreadProps(__spreadValues({}, state), {
+          concepts: action.concepts
+        });
+      case "concept/selectId":
+        return __spreadProps(__spreadValues({}, state), {
+          concept: action.concept
+        });
+      default:
+        return state;
+    }
+  }
+
   // src/store/modules/reducer.ts
   var reducers = combineReducers({
     items: postReducer,
     modal: modalReducer,
-    card: cardReducer
+    card: cardReducer,
+    concept: conceptReducer
   });
   var rootReducer = (state, action) => {
     if ((action == null ? void 0 : action.type) === "") {
@@ -26932,7 +27024,7 @@
     const root = (0, import_client.createRoot)(rootDom);
     root.render(/* @__PURE__ */ import_react29.default.createElement(Provider_default, {
       store: setupStore
-    }, /* @__PURE__ */ import_react29.default.createElement(App, null)));
+    }, /* @__PURE__ */ import_react29.default.createElement(App_default, null)));
   }
 })();
 /*

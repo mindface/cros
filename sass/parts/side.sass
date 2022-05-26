@@ -9,7 +9,8 @@
   width: 230px
   background-color: $white-color
   .item
-    padding: 0 0 20px
+    padding: 5px
+    margin: 0 0 10px
     transition: box-shadow 0.2s
     &.active
       box-shadow: 0 0 2px 0 $base-color inset
@@ -17,11 +18,12 @@
       cursor: pointer
       box-shadow: 0 0 2px 0 $base-color inset
     .caption
-      padding: 0 0 10px
+      display: flex
+      align-items: center
+      font-size: 14px
   .add-box
     &__btn
       background-color: $base-color
       color: $white-color
       margin: 0 0 10px
       cursor: pointer
-      

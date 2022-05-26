@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -13,9 +13,9 @@ import Contents06 from "./pages/parts/Contents06";
 
 import Layout from "./layout";
 
-export const App: React.FC = () => {
+ const App: React.FC = () => {
  return (
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
      <Route path="/" element={<Layout><Home /></Layout>} />
      <Route path="about" element={<Layout><About /></Layout>} />
@@ -26,10 +26,9 @@ export const App: React.FC = () => {
      <Route path="contents04" element={<Contents04 />} />
      <Route path="contents05" element={<Contents05 />} />
      <Route path="contents06" element={<Contents06 />} />
-     <Route path='parts'>
-      <Route path="contents02" element={<Contents02 />} />
-     </Route>
    </Routes>
-  </BrowserRouter>
+  </HashRouter>
  )
 }
+
+export default App;
