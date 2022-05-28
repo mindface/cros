@@ -20,6 +20,11 @@ function Home() {
               <p className="text">自分の考えを分類しよう</p>
             </Link>
           </div>
+          <div className="link-box radius">
+            <Link className="link" to="/make_imagee"><span className="aid">make image</span>
+              <p className="text">画像とテキストで画像を作成</p>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

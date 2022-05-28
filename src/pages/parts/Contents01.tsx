@@ -10,11 +10,10 @@ function Contents01(){
     return state.base.card.cards;
   })
   const concepts = useSelector((state:{base: RootStore}) => {
-    console.log(state.base.concept.concepts)
     return state.base.concept.concepts;
   })
 
-    return (
+  return (
     <div className="frame-content p-10">
       <div className="en">Information level {setCotentId}</div>
       <h3 className="title">- 情報レベル -</h3>
