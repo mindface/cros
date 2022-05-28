@@ -7,3 +7,68 @@
 @use "./parts/side"
 @use "./parts/modal"
 @use "./parts/box"
+
+@use './parts/mixin' as *
+@use './parts/variable' as *
+
+.home
+  background-color: #6dcefb
+  .content
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-wrap: wrap
+    &__title
+      flex-wrap: wrap
+      min-width: 420px
+      width: 100%
+      padding: 0 0 10px
+      text-align: center
+      font-size: 2.4vw
+      color: $white-color
+      .aid
+        @include fadeInUp(0)
+    &__body
+      display: flex
+      width: 100%
+      .link
+        &-box
+          width: calc( 33.33% - 5px )
+          margin: 0 5px
+          padding: 10px
+          border: 1px solid $white-color
+          .aid
+            display: inline-block
+            padding: 0 0 8px
+            font-size: 14px
+          .link
+            color: $white-color
+
+.dialog
+  position: absolute
+  top: 5px
+  left: 5px
+  height: 100vh
+  width: 100vw
+  padding: 10px
+  border: none
+  background-color: transparent
+  &-inner
+    height: 100%
+    width: 100%
+    background-color: $white-color
+  &-btns
+    display: flex
+    .btn
+      display: inline-block
+  .textarea
+    min-height: 280px
+
+.input,
+.textarea
+  width: 100%
+  padding: 8px
+  outline: none
+  transition: box-shadow 0.2s
+  &:hover
+    box-shadow: 0 0 0 2px $base-color inset

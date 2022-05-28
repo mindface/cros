@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useStore, useDispatch } from "react-redux";
 import { RootStore } from "../store/modules/reducer";
+import { Card } from "../models/card";
 
 function SideSelect(){
   const dispatch = useDispatch();
@@ -15,14 +16,17 @@ function SideSelect(){
   ]
 
   const cardsList = useSelector((state:{ base:RootStore }) => {
-  return state.base.card.cards;
-})
+    return state.base.card.cards;
+  })
+  const concepts = useSelector((state:{base: RootStore}) => {
+    return state.base.concept.concepts;
+  })
 
   function addContent(){
     const cardData = {
-      id:(cardsList.length + 1), name: "title", x: 40, y: 100, content: "tetetetet", contentId : String(contentId)
+      id:(cardsList.length + 1),path:"", name: concepts[contentId-1].title, x: 40, y: 100, content: concepts[contentId-1].body, contentId : String(contentId)
     }
-    const list = cardsList;
+    const list:Card[] = cardsList;
     list.push(cardData);
     dispatch({type:'card/add',cards:[]});
     // domの更新がされないため初期に空の配列を追加している

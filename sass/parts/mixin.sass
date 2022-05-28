@@ -1,0 +1,15 @@
+@use './variable' as *
+
+@mixin fadeInUp($num)
+  display: inline-block
+  transition: transform
+  opacity: 0
+  animation: KeyfadeInUp 0.3s ease #{$num}s forwards
+ 
+@keyframes KeyfadeInUp
+ 0%
+   opacity: 0
+   transform: translate(0,-10px)
+ 100%
+   opacity: 1
+   transform: translate(0,0)

@@ -1,6 +1,7 @@
 
 export interface Card {
   id: number;
+  path: string;
   name: string;
   x: number;
   y: number;
@@ -13,5 +14,6 @@ export interface Cards {
   cards: Card[];
   card: (Card | object);
   setId: string;
+  setCotentId: number;
 }
 

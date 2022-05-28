@@ -276,11 +276,20 @@ li {
   width: 100%;
   margin: 0 auto;
 }
+.radius {
+  border-radius: 8px;
+}
 .p-5 {
   padding: 5px;
 }
 .p-10 {
   padding: 10px;
+}
+.mr-5 {
+  margin-right: 5px;
+}
+.ml-5 {
+  margin-left: 5px;
 }
 .header {
   position: fixed;
@@ -298,6 +307,9 @@ li {
   max-height: 100vh;
   padding: 50px 0 60px 0;
   overflow: scroll;
+}
+.frame-content {
+  background-color: #fff;
 }
 .frame-content .title {
   font-size: 3vw;
@@ -455,6 +467,93 @@ li {
   display: block;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+@keyframes KeyfadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.home {
+  background-color: #6dcefb;
+}
+.home .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.home .content__title {
+  flex-wrap: wrap;
+  min-width: 420px;
+  width: 100%;
+  padding: 0 0 10px;
+  text-align: center;
+  font-size: 2.4vw;
+  color: #fff;
+}
+.home .content__title .aid {
+  display: inline-block;
+  transition: transform;
+  opacity: 0;
+  animation: KeyfadeInUp 0.3s ease 0s forwards;
+}
+.home .content__body {
+  display: flex;
+  width: 100%;
+}
+.home .content__body .link-box {
+  width: calc(33.33% - 5px);
+  margin: 0 5px;
+  padding: 10px;
+  border: 1px solid #fff;
+}
+.home .content__body .link-box .aid {
+  display: inline-block;
+  padding: 0 0 8px;
+  font-size: 14px;
+}
+.home .content__body .link-box .link {
+  color: #fff;
+}
+.dialog {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 100vh;
+  width: 100vw;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+}
+.dialog-inner {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+.dialog-btns {
+  display: flex;
+}
+.dialog-btns .btn {
+  display: inline-block;
+}
+.dialog .textarea {
+  min-height: 280px;
+}
+.input,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+.input:hover,
+.textarea:hover {
+  box-shadow: 0 0 0 2px #233E59 inset;
 }
 /*!
  * * ress.css • v1.2.2

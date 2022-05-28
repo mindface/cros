@@ -1,18 +1,18 @@
 
 export interface Concept {
   id?: number;
-  title: String;
-  body: String;
-  info: String;
+  title: string;
+  body: string;
+  info: string;
 }
 
 export interface Concepts {
   id: Number;
-  title: String;
-  body: String;
-  category: String;
-  created_at: String;
-  updated_at: String;
+  title: string;
+  body: string;
+  category: string;
+  created_at: string;
+  updated_at: string;
   categorynumber: Number;
   guropsnumber: Number;
   user_token: any;

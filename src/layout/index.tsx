@@ -1,12 +1,14 @@
 import React, { ReactNode } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import FooterBase from "../components/FooterBase";
 
 type Props = {
   children?: ReactNode;
+  footerName?: string;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, footerName }: Props) => {
 
   // if ("/think") {
   //   return (
@@ -22,7 +24,7 @@ const Layout = ({ children }: Props) => {
     <>
     <Header />
     <div className="wrapper">{children}</div>
-    <Footer />
+    {footerName === 'base' ? <FooterBase /> : <Footer />}
     </>
   );
 };

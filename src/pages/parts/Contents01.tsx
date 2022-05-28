@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useStore } from "react-redux";
+import { RootStore } from "../../store/modules/reducer";
 
 function Contents01(){
- return (
-   <div className="frame-content p-10">
-     <div className="en">Information level</div>
-     <h3 className="title">- 情報レベル -</h3>
-     <div className="en text">Although not shown in the Brack stage diagram, with age in the subcortical nerve nucleus, the amygdala, especially the medial cortical nucleus (developmentally old nucleus group), the Meinert nucleus, the dorsal of the diagonal circumflex nucleus and the brainstem region. NFTs are also found in monoaminenuclei such as the ventral tegmental nucleus, locus coeruleus, and raphe nuclei (upper central nucleus). These nuclei are also the predominant nuclei of NFT in ATD. In particular, the Meinert nucleus is a nerve nucleus associated with the nootropic drug acetylcholinesterase inhibitor, but the frequency of appearance of NFT is about 10 to 20% in the early stage of ATD, and 60% or more in the advanced stage.</div>
-   </div>
- )
+  const setCotentId = useSelector((state:{base: RootStore}) => {
+    return state.base.card.setCotentId;
+  })
+  const cards = useSelector((state:{base: RootStore}) => {
+    return state.base.card.cards;
+  })
+  const concepts = useSelector((state:{base: RootStore}) => {
+    console.log(state.base.concept.concepts)
+    return state.base.concept.concepts;
+  })
+
+    return (
+    <div className="frame-content p-10">
+      <div className="en">Information level {setCotentId}</div>
+      <h3 className="title">- 情報レベル -</h3>
+      <div className="en text">{cards[setCotentId-1].content}</div>
+    </div>
+  )
 }
 
 export default Contents01;
