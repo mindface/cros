@@ -27,9 +27,14 @@ build({
      console.log(`${err}`)
    }
   },
-  plugins:[sassPlugin({ quietDeps: true })],
+  plugins:[sassPlugin({
+    quietDeps: true,
+  })],
   loader:{
-    ".sass":"css"
+    ".sass":"css",
+    ".png":"file",
+    ".woff":"file",
+    ".svg":"file"
   }
 }).then((result) => {
  console.log()

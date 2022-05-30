@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Make from "./pages/Make";
 import MakeImage from "./pages/MakeImage";
+import MakeShape from "./pages/MakeShape";
 import Contents01 from "./pages/parts/Contents01";
 import Contents02 from "./pages/parts/Contents02";
 import Contents03 from "./pages/parts/Contents03";
@@ -22,6 +23,7 @@ import Layout from "./layout";
      <Route path="about" element={<Layout footerName='base' ><About /></Layout>} />
      <Route path="make" element={<Layout><Make /></Layout>} />
      <Route path="make_imagee" element={<Layout footerName='base'><MakeImage /></Layout>} />
+     <Route path="make_shape" element={<Layout footerName='base'><MakeShape /></Layout>} />
      <Route path="contents01" element={<Contents01 />} />
      <Route path="contents02" element={<Contents02 />} />
      <Route path="contents03" element={<Contents03 />} />

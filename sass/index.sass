@@ -44,3 +44,21 @@
   transition: box-shadow 0.2s
   &:hover
     box-shadow: 0 0 0 2px $base-color inset
+
+.make-image-svg
+  .for_canvas
+    width: 100%!important
+    height: 100%!important
+  .face
+    position: relative
+    min-height: 320px
+    z-index: 1
+    background-image: url('../public/images/shape.png')
+    background-size: cover
+    border: 1px solid #cae7ff
+  .svg
+    display: inline-block
+    cursor: pointer
+    transition: box-shadow 0.2s
+    &.active
+      box-shadow: 0 0 0 2px $base-color inset

@@ -262,6 +262,9 @@ li {
   display: inline-block;
   padding: 5px;
 }
+.contents-wrapper {
+  padding: 60px 0 0;
+}
 .content {
   min-height: calc(100vh - 94px);
   padding: 0 0 40px;
@@ -553,7 +556,6 @@ li {
   overflow: hidden;
 }
 .make-image {
-  padding: 60px 0 0;
   background-color: #fff;
 }
 .make-image--inner {
@@ -669,6 +671,26 @@ li {
 [contentEditable]:hover,
 .input:hover,
 .textarea:hover {
+  box-shadow: 0 0 0 2px #233E59 inset;
+}
+.make-image-svg .for_canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.make-image-svg .face {
+  position: relative;
+  min-height: 320px;
+  z-index: 1;
+  background-image: url(./shape-G3R6PN2U.png);
+  background-size: cover;
+  border: 1px solid #cae7ff;
+}
+.make-image-svg .svg {
+  display: inline-block;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.make-image-svg .svg.active {
   box-shadow: 0 0 0 2px #233E59 inset;
 }
 /*!
