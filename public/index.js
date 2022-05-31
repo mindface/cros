@@ -49108,8 +49108,6 @@
     (0, import_react13.useEffect)(() => {
       editTitleSet(props.card.name);
       editBodySet(props.card.content);
-      _xSet(props.card.x);
-      _ySet(props.card.y);
     }, [props.card]);
     return /* @__PURE__ */ import_react13.default.createElement("div", {
       className: `card p-10 boxShadow radius card${card.id}`,
@@ -49121,7 +49119,7 @@
         mouseOut();
       },
       style: { left: `${_x}px`, top: `${_y}px` }
-    }, editTitle, /* @__PURE__ */ import_react13.default.createElement("div", {
+    }, /* @__PURE__ */ import_react13.default.createElement("div", {
       className: "btn-box"
     }, /* @__PURE__ */ import_react13.default.createElement("div", {
       className: "btn boxShadow radius p-5",
@@ -49470,6 +49468,7 @@
     const forhtml2canvas = (0, import_react21.useRef)(null);
     const face = (0, import_react21.useRef)(null);
     const forSvg = (0, import_react21.useRef)(null);
+    const textColor = (0, import_react21.useRef)("#0000ff");
     const [selctSvg, selctSvgSet] = (0, import_react21.useState)("");
     const [iamgeSrcOb, iamgeSrcObSet] = (0, import_react21.useState)({
       iamge01Src: "",
@@ -49492,13 +49491,25 @@
     function selectAction(name) {
       selctSvgSet(name);
     }
+    function selectColorAction(e) {
+      textColor.current = e.target.value;
+    }
+    function objDeleteAction() {
+      let acitveObjcts = canvas.current.getActiveObjects();
+      canvas.current.getActiveObjects([]);
+      if (acitveObjcts !== null) {
+        acitveObjcts.forEach((object) => {
+          canvas.current.remove(object);
+        });
+      }
+    }
     function selectAddAction() {
       switch (selctSvg) {
         case "text":
           canvas.current.add(new import_fabric.fabric.IText("@@@@", {
             left: 10,
             top: 10,
-            fill: "#ccc",
+            fill: textColor.current,
             fontFamily: "Helvetica",
             lineHeight: 1.1,
             styles: {
@@ -49628,6 +49639,9 @@
       strokeWidth: "5"
     })), /* @__PURE__ */ import_react21.default.createElement("button", {
       className: "btn",
+      onClick: () => selectAddAction()
+    }, "svg \u8FFD\u52A0"), /* @__PURE__ */ import_react21.default.createElement("button", {
+      className: "btn",
       onClick: () => {
         selctSvgSet("text");
         selectAddAction();
@@ -49638,12 +49652,18 @@
       className: "d-n",
       onChange: (e) => changeFileData(e)
     }), /* @__PURE__ */ import_react21.default.createElement("label", {
+      className: "btn"
+    }, "\u30C6\u30AD\u30B9\u30C8\u8272\u3092\u9078\u629E ", /* @__PURE__ */ import_react21.default.createElement("input", {
+      type: "color",
+      value: "#0000ff",
+      onChange: (e) => selectColorAction(e)
+    })), /* @__PURE__ */ import_react21.default.createElement("label", {
       htmlFor: "add_photo",
       className: "label btn"
     }, "photo add"), /* @__PURE__ */ import_react21.default.createElement("button", {
       className: "btn",
-      onClick: () => selectAddAction()
-    }, "add"))), /* @__PURE__ */ import_react21.default.createElement("div", {
+      onClick: () => objDeleteAction()
+    }, "select delete"))), /* @__PURE__ */ import_react21.default.createElement("div", {
       id: "html2canvas",
       className: "html2canvas",
       ref: forhtml2canvas

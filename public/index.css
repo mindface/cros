@@ -263,7 +263,7 @@ li {
   padding: 5px;
 }
 .contents-wrapper {
-  padding: 60px 0 0;
+  padding: 50px 0 0;
 }
 .content {
   min-height: calc(100vh - 94px);
@@ -392,7 +392,7 @@ li {
 }
 .content--make {
   max-height: 100vh;
-  padding: 50px 0 60px 0;
+  padding: 0 0 60px 0;
   overflow: scroll;
 }
 .frame-content {
@@ -540,7 +540,7 @@ li {
 }
 .box--select .card .title {
   margin: 0 0 10px;
-  border--bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
   font-size: 1.4rem;
 }
 .box--select .card .view.info-box {
@@ -549,6 +549,7 @@ li {
 .box--select .card .info-box {
   background-color: #fff;
   overflow: hidden;
+  white-space: nowrap;
 }
 .box--select .card .info-box .title {
   display: block;

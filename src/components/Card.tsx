@@ -71,8 +71,8 @@ function Card(props:Props){
   useEffect(() => {
     editTitleSet(props.card.name)
     editBodySet(props.card.content)
-    _xSet(props.card.x)
-    _ySet(props.card.y)
+    // _xSet(props.card.x)
+    // _ySet(props.card.y)
   },[props.card])
 
   return (
@@ -82,7 +82,7 @@ function Card(props:Props){
       onMouseMove={(e:React.MouseEvent) => {mouseMove(e)}}
       onMouseUp={(e) => {mouseOut()}}      
       style={{left:`${_x}px`,top:`${_y}px`}}
-    >{editTitle}
+    >
       <div className="btn-box">
         <div className="btn boxShadow radius p-5"
           onClick={(e:React.MouseEvent) => viewIng(e)}>view</div>
