@@ -1,3 +1,3 @@
 # cros
 
-react をesbuildでコンパイルされるように追加
+react を esbuild でコンパイルされるように追加

@@ -1,4 +1,3 @@
-
 export interface Concept {
   id?: number;
   title: string;

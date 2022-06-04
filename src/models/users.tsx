@@ -16,6 +16,6 @@ export interface GetUsers {
   updated_at: String;
   categorynumber: Number;
   guropsnumber: Number;
-  
+
   user_token: any;
 }

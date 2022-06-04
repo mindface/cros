@@ -1,7 +1,6 @@
-
-import { combineReducers, createStore } from 'redux'
-import { rootReducer } from './modules/reducer'
-import logger from 'redux-logger'
+import { combineReducers, createStore } from "redux";
+import { rootReducer } from "./modules/reducer";
+import logger from "redux-logger";
 
 // export const setupStore = (): EnhancedStore => {
 //   const middlewares = [...getDefaultMiddleware()]
@@ -18,7 +17,7 @@ import logger from 'redux-logger'
 // }
 
 const combinedReducer = combineReducers({
-  level: rootReducer
-})
+  level: rootReducer,
+});
 
-export const setupStore = createStore(combinedReducer)
+export const setupStore = createStore(combinedReducer);

@@ -9,7 +9,6 @@ type Props = {
 };
 
 const Layout = ({ children, footerName }: Props) => {
-
   // if ("/think") {
   //   return (
   //     <>
@@ -22,9 +21,9 @@ const Layout = ({ children, footerName }: Props) => {
 
   return (
     <>
-    <Header />
-    <div className="wrapper">{children}</div>
-    {footerName === 'base' ? <FooterBase /> : <Footer />}
+      <Header />
+      <div className="wrapper">{children}</div>
+      {footerName === "base" ? <FooterBase /> : <Footer />}
     </>
   );
 };

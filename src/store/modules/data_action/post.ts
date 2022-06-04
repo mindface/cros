@@ -1,18 +1,16 @@
+import axios from "axios";
+import { Action, Dispatch } from "redux";
+import { Levels } from "../../../models/levels";
 
-import axios from 'axios'
-import { Action, Dispatch } from 'redux'
-import { Levels } from '../../../models/levels'
+export const FETCH_LEVEL_DATA_REQUEST = "FETCH_LEVEL_DATA_REQUEST";
+export const FETCH_LEVEL_DATA_SUCCESS = "FETCH_LEVEL_DATA_SUCCESS";
+export const FETCH_LEVEL_DATA_FAILURE = "FETCH_LEVEL_DATA_FAILURE";
 
-export const FETCH_LEVEL_DATA_REQUEST = 'FETCH_LEVEL_DATA_REQUEST'
-export const FETCH_LEVEL_DATA_SUCCESS = 'FETCH_LEVEL_DATA_SUCCESS'
-export const FETCH_LEVEL_DATA_FAILURE = 'FETCH_LEVEL_DATA_FAILURE'
-
-
-export function initalLevelState():any  {
+export function initalLevelState(): any {
   return {
     levelDataItem: [],
     modalView: false,
-  }
+  };
 }
 
 export interface LevelPostAction extends Action {
@@ -22,61 +20,61 @@ export interface LevelPostAction extends Action {
 
 export interface LevelPostActionFailure extends Action {
   type: string;
-  err: string
+  err: string;
 }
 
-
-export function postReducer(state:any = initalLevelState(), action:LevelPostAction) {
+export function postReducer(
+  state: any = initalLevelState(),
+  action: LevelPostAction
+) {
   switch (action.type) {
     case FETCH_LEVEL_DATA_REQUEST:
-        return {
-          ...state,
-            isFetching: true,
-            levelDataItem: []
-          }
-      case FETCH_LEVEL_DATA_SUCCESS:
-        console.log(action)
-        
-       return {
-           ...state,
-             isFetching: false,
-             levelDataItem: action['items']
-           }
-       case FETCH_LEVEL_DATA_FAILURE:
-        return {
-          ...state,
-            isFetching: false,
-            levelDataItem: []
-          }
+      return {
+        ...state,
+        isFetching: true,
+        levelDataItem: [],
+      };
+    case FETCH_LEVEL_DATA_SUCCESS:
+      console.log(action);
+
+      return {
+        ...state,
+        isFetching: false,
+        levelDataItem: action["items"],
+      };
+    case FETCH_LEVEL_DATA_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        levelDataItem: [],
+      };
     default:
-      return state
+      return state;
   }
 }
 
+export const levelFetchDataRequest = (): LevelPostAction => {
+  return {
+    type: FETCH_LEVEL_DATA_REQUEST,
+    items: [],
+  };
+};
 
-export const levelFetchDataRequest = (): LevelPostAction  => {
-   return {
-      type: FETCH_LEVEL_DATA_REQUEST,
-      items: []
-   }
-}
-
-export const levelFetchDataSuccess = (data: Levels[]) :LevelPostAction  => {
-  console.log('00000')
- return {
+export const levelFetchDataSuccess = (data: Levels[]): LevelPostAction => {
+  console.log("00000");
+  return {
     type: FETCH_LEVEL_DATA_SUCCESS,
-    items: data
-  }
-}
+    items: data,
+  };
+};
 
-export const levelFetchDataFailure = (err: string) : LevelPostActionFailure => {
-  console.log('00000')
+export const levelFetchDataFailure = (err: string): LevelPostActionFailure => {
+  console.log("00000");
   return {
     type: FETCH_LEVEL_DATA_FAILURE,
-    err: err
-  }
-}
-
+    err: err,
+  };
+};
 
 // export const AddLvelData = (sendData:any) => {
 //   const postSendData = sendData
@@ -120,47 +118,49 @@ export const levelFetchDataFailure = (err: string) : LevelPostActionFailure => {
 //   }
 // }
 
-export const postLevelData = (sendData:Levels) => {
-  const postSendData = { level:sendData }
-  console.log(postSendData)
-  axios.defaults.xsrfCookieName = 'csrftoken'
-    // axios.defaults.baseURL = 'http://localhost:3000';
+export const postLevelData = (sendData: Levels) => {
+  const postSendData = { level: sendData };
+  console.log(postSendData);
+  axios.defaults.xsrfCookieName = "csrftoken";
+  // axios.defaults.baseURL = 'http://localhost:3000';
   // axios.defaults.xsrfHeaderName = "X-CSRFToken"
-  axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  const headers:object = {
-    "Access-Control-Allow-Orgin":"*",
+  axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+  const headers: object = {
+    "Access-Control-Allow-Orgin": "*",
     "Content-Type": "application/json; charset=utf-8",
-  }
-  
-  levelFetchDataRequest()
-  const res = axios.post('http://localhost:3003/api/levels/', postSendData)
-    .then( (res) => {
-    const getdata:any = res.data
-    return (levelFetchDataSuccess(getdata))
+  };
+
+  levelFetchDataRequest();
+  const res = axios
+    .post("http://localhost:3003/api/levels/", postSendData)
+    .then((res) => {
+      const getdata: any = res.data;
+      return levelFetchDataSuccess(getdata);
     })
-    .catch( (err) => {
-      console.log(err)
-      return (levelFetchDataFailure(err))
-    })
-}
+    .catch((err) => {
+      console.log(err);
+      return levelFetchDataFailure(err);
+    });
+};
 
 export const getLevelData = () => {
-  console.log('---')
-  return (dispatch: Dispatch)  => {
-    dispatch(levelFetchDataRequest())
-    axios.defaults.xsrfCookieName = 'csrftoken'
-    axios.defaults.xsrfHeaderName = "X-CSRFToken"
-    const headers:object = {
-      "Access-Control-Allow-Orgin":"*",
-      "Content-Type": "application/json; charset=utf-8"
-    }
+  console.log("---");
+  return (dispatch: Dispatch) => {
+    dispatch(levelFetchDataRequest());
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    const headers: object = {
+      "Access-Control-Allow-Orgin": "*",
+      "Content-Type": "application/json; charset=utf-8",
+    };
     // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    axios.get('http://localhost:3003/api/levels/',headers)
-      .then( (res) => {
-        dispatch(levelFetchDataSuccess(res.data))
+    axios
+      .get("http://localhost:3003/api/levels/", headers)
+      .then((res) => {
+        dispatch(levelFetchDataSuccess(res.data));
       })
-      .catch( (err) => {
-        dispatch(levelFetchDataFailure(err))
-      })
-  }
-}
+      .catch((err) => {
+        dispatch(levelFetchDataFailure(err));
+      });
+  };
+};

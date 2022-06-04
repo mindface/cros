@@ -1,4 +1,3 @@
-
 export interface Posts {
   id: Number;
   text: String;

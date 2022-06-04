@@ -1,9 +1,9 @@
-import axios from 'axios'
-import { Action, Dispatch } from 'redux'
+import axios from "axios";
+import { Action, Dispatch } from "redux";
 import { Concept } from "../../../models/concept";
 import conceptJson from "./setState/concept.json";
 
-export interface ConceptState  {
+export interface ConceptState {
   type?: string;
   concepts: Concept[];
   concept: Concept;
@@ -20,62 +20,65 @@ export interface ConceptActionFailure extends Action {
   id: string;
 }
 
-export function initalConceptState():ConceptState  {
+export function initalConceptState(): ConceptState {
   return {
     concepts: conceptJson,
     concept: {
       title: "",
       body: "",
       info: "",
-    }
-  }
+    },
+  };
 }
 
-export function conceptReducer(state:ConceptState = initalConceptState(), action:ConceptAction) {
+export function conceptReducer(
+  state: ConceptState = initalConceptState(),
+  action: ConceptAction
+) {
   switch (action.type) {
-    case 'concept/get':
-      return {
-       ...state,
-         modalView: true,
-         concepts: action.concepts
-       }
-    case 'concept/set':
+    case "concept/get":
       return {
         ...state,
-        modalView: false
-        }
-     case 'concept/dataget':
+        modalView: true,
+        concepts: action.concepts,
+      };
+    case "concept/set":
       return {
         ...state,
-          concepts: action.concepts
-        }
-    case 'concept/selectId':
+        modalView: false,
+      };
+    case "concept/dataget":
       return {
         ...state,
-          concept: action.concept,
-        }
-      // case 'level/dataupdate':
-      //   return　axios.patch(`http://localhost:3003/api/levels/${action['id']}`)
-      //    .then( (res) => {
-      //      return {
-      //       ...state,
-      //         isFetching: false,
-      //         levelDataItem: res.data
-      //       }
-      //    })
-      //  case 'level/datadelete':
-      //    axios.delete(`http://localhost:3003/api/levels/${action['id']}`)
-      //    .then( (res) => {
-      //      return {
-      //        ...state,
-      //          isFetching: true,
-      //        }
-      //    })
-        // return {
-        // ...state,
-        //   isFetching: true
-        // }
-      default:
-        return state
-    }
+        concepts: action.concepts,
+      };
+    case "concept/selectId":
+      return {
+        ...state,
+        concept: action.concept,
+      };
+    // case 'level/dataupdate':
+    //   return　axios.patch(`http://localhost:3003/api/levels/${action['id']}`)
+    //    .then( (res) => {
+    //      return {
+    //       ...state,
+    //         isFetching: false,
+    //         levelDataItem: res.data
+    //       }
+    //    })
+    //  case 'level/datadelete':
+    //    axios.delete(`http://localhost:3003/api/levels/${action['id']}`)
+    //    .then( (res) => {
+    //      return {
+    //        ...state,
+    //          isFetching: true,
+    //        }
+    //    })
+    // return {
+    // ...state,
+    //   isFetching: true
+    // }
+    default:
+      return state;
+  }
 }

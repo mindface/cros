@@ -1,29 +1,27 @@
-import React, { useEffect,useMemo,useState, useRef } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import Card from "./Card";
 import * as modalCard from "../models/card";
 import { RootStore } from "../store/modules/reducer";
 
-function Explanation(){
-  const selectId = useSelector((state:{base:RootStore}) => {
-    return state.base.modal.selectId
-  })
-  const cards = () => useSelector((state:{base:RootStore}) => {
-    return state.base.card.cards;
-  })
+function Explanation() {
+  const selectId = useSelector((state: { base: RootStore }) => {
+    return state.base.modal.selectId;
+  });
+  const cards = () =>
+    useSelector((state: { base: RootStore }) => {
+      return state.base.card.cards;
+    });
 
-  function modalAction(id:number){}
+  function modalAction(id: number) {}
 
-  function mouseDown(e:Event) {}
+  function mouseDown(e: Event) {}
 
-  function mouseMove(e:Event) {}
+  function mouseMove(e: Event) {}
 
-  function mouseOut(e:Event) {}
+  function mouseOut(e: Event) {}
 
-  return (
-   <div className="box--select p-10">Explanation
-   </div>
-  )
+  return <div className="box--select p-10">Explanation</div>;
 }
 
 export default Explanation;

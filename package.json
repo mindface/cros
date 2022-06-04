@@ -14,6 +14,7 @@
     "metafile": "NODE_ENV=production META_FILE=true npm run b"
   },
   "dependencies": {
+    "@types/dat.gui": "^0.7.7",
     "@types/express": "^4.17.13",
     "@types/fabric": "^4.5.7",
     "@types/node": "^17.0.23",
@@ -23,8 +24,10 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/redux": "^3.6.0",
     "@types/sass": "^1.43.1",
+    "@types/three": "^0.141.0",
     "browser-sync": "^2.27.9",
     "css-loader": "^6.7.1",
+    "dat.gui": "^0.7.9",
     "esbuild": "^0.14.34",
     "esbuild-register": "^3.3.2",
     "express": "^4.17.3",
@@ -39,6 +42,7 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.50.0",
     "sass-loader": "^13.0.0",
+    "three": "^0.141.0",
     "ts-node": "^10.8.0",
     "typescript": "^4.6.3",
     "wait-on": "^6.0.1"

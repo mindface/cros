@@ -1,4 +1,3 @@
-
 export interface Levels {
   title: String;
   body: String;

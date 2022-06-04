@@ -1,9 +1,8 @@
-
-import { combineReducers, createStore } from 'redux'
-import { rootReducer } from './modules/reducer'
+import { combineReducers, createStore } from "redux";
+import { rootReducer } from "./modules/reducer";
 
 const combinedReducer = combineReducers({
   base: rootReducer,
-})
+});
 
-export const setupStore = createStore(combinedReducer)
+export const setupStore = createStore(combinedReducer);

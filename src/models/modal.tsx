@@ -1,10 +1,9 @@
-
 export interface Modals {
-  modalView: false,
-  viewId: number,
-  selectId: number,
-  isFetching: boolean,
-  isloading: boolean
+  modalView: false;
+  viewId: number;
+  selectId: number;
+  isFetching: boolean;
+  isloading: boolean;
 }
 
 export interface GetLevels {

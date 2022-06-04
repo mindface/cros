@@ -1,4 +1,3 @@
-
 export interface Card {
   id: number;
   path: string;
@@ -12,8 +11,7 @@ export interface Card {
 export interface Cards {
   type: string;
   cards: Card[];
-  card: (Card | object);
+  card: Card | object;
   setId: string;
   setCotentId: number;
 }
-
