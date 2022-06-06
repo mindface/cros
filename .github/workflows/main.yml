@@ -1,8 +1,11 @@
 name: Check the source code
 on:
-  pull_request:
-    branches:
-      -main
+  push:
+    branches: [main]
+
+env:
+  FILE_PATTERN: "src/*"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,15 +13,13 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
           node-version: 16.x
       - name: Install packages
-        run: npm ci
-      - uses: actions/checkout@v3 # Check out the repository first.
-      - uses: actionsx/prettier@v4
+        run: |
+          npx prettier --write ${FILE_PATTERN}
+      - uses: git commit action@V3.0.0
         with:
-          # prettier CLI arguments.
-          args: --check .
+          commit_message: Apply Prettier Change
