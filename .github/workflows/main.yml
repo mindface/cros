@@ -1,20 +1,5 @@
-on:
-  push:
-    tags:
-      - '*'
-
-jobs:
-  test:
-    name: Check the source code
-    runs-on: ubuntu-latest
-  build:
-    steps:
-      - name: Clone repository
-        uses: actions_checkout@v1
-      - name: Use Node.js 16.x
-        with:
-          node-version: 16.x
-      - name: Install build
-        run: npm run build
-      - name: Prettier
-        run: npx prettier --wraite .
+- uses: actions/checkout@v2 
+- uses: actionsx/prettier@v2
+  with:
+    # prettier CLI arguments.
+    args: --check .
