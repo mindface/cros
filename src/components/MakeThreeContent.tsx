@@ -1,49 +1,41 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useStore, useDispatch } from "react-redux";
 import { fabric } from "fabric";
-import * as THREE from "three";
-import * as dat from "dat.gui";
 import Canvas3d from "../module/three";
 let c3d = new Canvas3d();
+
+type Item = {
+  index: number;
+  id: number;
+};
+type List = Item[];
 
 function MakeThreeContent() {
   const store = useStore();
   const dispatch = useDispatch();
-  let canvas = useRef(fabric);
   let [xl, xlSet] = useState(0);
   let [yl, ylSet] = useState(0);
   let [zl, zlSet] = useState(0);
-  let [threeSwitch, threeSwitchSet] = useState(false);
+  let [selectNumber, selectNumberSet] = useState(0);
+  let [deleteSwitch, deleteSwitchSet] = useState(false);
+  let [listThree, listThreeSet] = useState<List>([]);
+  let [deleteListThree, deleteListThreeSet] = useState<number[]>([]);
+  let [deleteThreeId, deleteThreeIdSet] = useState<number>(0);
   let threeCanvas = useRef<HTMLCanvasElement>(null);
 
-  let div = document.createElement("div");
-  let closebtn = document.createElement("div");
-  let renderer = THREE.WebGLRenderer;
-  let meshList = [];
-
-  const config = {
-    gridlineColor: "0xffffff",
-    t: "n",
-  };
-
-  function setElement() {
-    div = document.createElement("div");
-    div.className = "three3d";
-    closebtn = document.createElement("div");
-    closebtn.className = "btn";
-    closebtn.innerText = "close";
-    closebtn.addEventListener("click", () => {
-      div.remove();
+  const setThreeMesh = () => {
+    let list: List = [];
+    c3d.stateList().forEach((mesh: THREE.Mesh, index: number) => {
+      if (deleteListThree.indexOf(mesh.id) === -1) {
+        list.push({ index: index, id: mesh.id });
+      }
     });
-    div.appendChild(closebtn);
-  }
+    listThreeSet(list);
+  };
 
   const threeData = () => {
     const alink = document.createElement("a");
     if (threeCanvas.current) {
-      const canvas = document.getElementById(
-        "threeCanvas"
-      ) as HTMLCanvasElement;
       alink.href = threeCanvas.current.toDataURL("image/png");
       alink.download = "d.png";
       alink.click();
@@ -51,17 +43,30 @@ function MakeThreeContent() {
     // c3d.addImage();
   };
 
+  const listThreeBox = () => {};
+
   const addThree = () => {
     c3d.addBoxMesh(xl, yl, zl);
+    setThreeMesh();
   };
 
-  const viewThree = () => {
-    threeSwitchSet(!threeSwitch);
+  const setDeleteThreeBox = (id: number, index: number) => {
+    selectNumberSet(index);
+    deleteThreeIdSet(id);
+  };
+
+  const deleteThreeBox = () => {
+    let list = deleteListThree;
+    list.push(deleteThreeId);
+    deleteListThreeSet(list);
+    c3d.remove(deleteThreeId);
+    setThreeMesh();
   };
 
   useEffect(() => {
     // c3d = new Canvas3d(threeCanvas.current!);
     c3d.Init(threeCanvas.current!);
+    setThreeMesh();
   }, []);
 
   return (
@@ -122,12 +127,60 @@ function MakeThreeContent() {
               />
               <label htmlFor="zl">z 軸</label>
             </p>
-            <button
-              className="close boxShadow btn radius"
-              onClick={() => addThree()}
-            >
-              add box
-            </button>
+            <p className="slider p-5">
+              <button
+                className="close boxShadow btn radius"
+                onClick={() => addThree()}
+              >
+                add box
+              </button>
+            </p>
+            <div className="delete-select d-f">
+              <div className="select">
+                <p
+                  className="select-number radius"
+                  onClick={() => {
+                    deleteSwitchSet(!deleteSwitch);
+                  }}
+                >
+                  {selectNumber}
+                </p>
+                <ul
+                  className={
+                    deleteSwitch
+                      ? "list p-10 radius active boxShadow"
+                      : "list boxShadow"
+                  }
+                >
+                  {listThree.length !== 0 ? (
+                    listThree.map((item: Item) => {
+                      return (
+                        <li
+                          className="item"
+                          key={item.id}
+                          onClick={() => {
+                            setDeleteThreeBox(item.id, item.index);
+                            deleteSwitchSet(!deleteSwitch);
+                          }}
+                        >
+                          {item.index}
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li className="item">追加してください。</li>
+                  )}
+                </ul>
+              </div>
+              <p className="p-5">
+                <button
+                  className="close boxShadow btn radius"
+                  onClick={() => deleteThreeBox()}
+                >
+                  delete box
+                </button>
+              </p>
+            </div>
           </div>
         </div>
         <div id="c-outer" className="c-outer">

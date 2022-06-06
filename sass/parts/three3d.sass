@@ -1,0 +1,63 @@
+@use './variable' as *
+
+
+.three3d
+  position: fixed
+  z-index: 1
+  top: 0
+  left: 0
+  .btn
+    top: 10px
+    left: 10px
+  .add-mesh-box
+    background-color: $white-color
+  .delete-select
+    .select
+      position: relative
+      height: 20px
+      width: 80px
+      padding: 5px
+      font-size: 14px
+      &::after
+        content: ""
+        position: absolute
+        top: 12px
+        right: 16px
+        height: 8px
+        width: 8px
+        border-left: 1px solid $base-color
+        border-bottom: 1px solid $base-color
+        transform: rotate(-45deg)
+      &-number
+        position: relative
+        border: 1px solid $base-color
+        padding: 5px
+        &:hover
+          cursor: pointer
+    .list
+      display: none
+      position: absolute
+      top: 30px
+      left: 0
+      width: 80px
+      padding: 5px
+      background-color: $white-color
+      &.active
+        display: block
+    .item
+      &:hover
+        background-color: $base-color
+        color: $white-color
+        cursor: pointer
+
+.make-threeimage    
+  .c-outer
+    .dg.main
+      position: fixed
+      top: 50px
+      right: 0
+  
+body
+  .dg.ac
+    z-index: 2
+    top: 50px

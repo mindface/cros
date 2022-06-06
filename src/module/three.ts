@@ -19,7 +19,10 @@ class Canvas3d {
   config: Conf;
   meshList: any;
   group: any;
+  camera: any;
   scene: any;
+  raycaster: any;
+  mouse: any;
 
   constructor(element?: HTMLCanvasElement) {
     this.div = document.createElement("div");
@@ -28,9 +31,11 @@ class Canvas3d {
     this.meshList = [];
     this.group = new THREE.Group();
     this.scene = new THREE.Scene();
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
 
     this.config = {
-      gridlineColor: "0xCCCCCC",
+      gridlineColor: "#ffffff",
       t: "n",
     };
 
@@ -56,15 +61,15 @@ class Canvas3d {
     light.position.set(0.5, 1.0, 0.5).normalize();
     this.scene.add(light);
 
-    const camera = new THREE.PerspectiveCamera(
+    this.camera = new THREE.PerspectiveCamera(
       35,
       window.innerWidth / window.innerHeight,
       1,
       500
     );
-    camera.position.y = 5;
-    camera.position.z = 10;
-    this.scene.add(camera);
+    this.camera.position.y = 5;
+    this.camera.position.z = 10;
+    this.scene.add(this.camera);
 
     const grid = new THREE.GridHelper(50, 50, 0xffffff, 0x333333);
     this.scene.add(grid);
@@ -78,14 +83,29 @@ class Canvas3d {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+    // マウスムーブ
+    // const handleMouseMove = (e:MouseEvent) => {
+    //    const dom = e.target as HTMLCanvasElement;
+    //    const x = e.clientX - dom.offsetLeft;
+    //    const y = e.clientX - dom.offsetTop;
+    //    const w = dom?.offsetWidth;
+    //    const h = dom.offsetHeight;
+    //    this.mouse.x = (x/w) * 2 - 1;
+    //    this.mouse.y = -(x/h) * 2 + 1;
+    // }
+    // element?.addEventListener('mousemove',(e:MouseEvent) => handleMouseMove(e));
+
     // document.getElementById('threeCanvas')?.appendChild( this.renderer.domElement );
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
 
     const material = new THREE.MeshPhongMaterial({
+      map: new THREE.CanvasTexture(this.makeCanvas("1")),
       color: 0xcccccc,
       flatShading: true,
     });
+
+    // const material = new THREE.MeshBasicMaterial({map: new THREE.CanvasTexture(cvs),});
 
     const mesh = new THREE.Mesh(geometry, material);
     this.meshList.push(mesh);
@@ -98,36 +118,47 @@ class Canvas3d {
     gui.add(mesh.scale, "y", 0, 100);
     gui.add(mesh.scale, "z", 0, 100);
     gui.add(this.config, "gridlineColor");
-
     const guiCamera = gui.addFolder("camera");
-    guiCamera.add(camera.position, "x", 0, 100);
-    guiCamera.add(camera.position, "y", 0, 100);
-    guiCamera.add(camera.position, "z", 0, 100).onChange((item: number) => {});
-
+    guiCamera.add(this.camera.position, "x", 0, 100);
+    guiCamera.add(this.camera.position, "y", 0, 100);
+    guiCamera
+      .add(this.camera.position, "z", 0, 100)
+      .onChange((item: number) => {});
     document.getElementById("c-outer")?.appendChild(gui.domElement);
-
     gui.close();
 
     const render = () => {
-      this.renderer.render(this.scene, camera);
+      this.renderer.render(this.scene, this.camera);
     };
     render();
 
     const animate = () => {
       requestAnimationFrame(animate);
-
+      // this.raycaster.setFromCamera(this.mouse,camera);
       render();
     };
 
     animate();
 
-    const controls = new OrbitControls(camera, this.renderer.domElement);
+    const controls = new OrbitControls(this.camera, this.renderer.domElement);
     controls.addEventListener("change", render);
     controls.update();
   }
 
-  remove() {
-    this.div.remove();
+  stateList() {
+    return this.meshList;
+  }
+
+  remove(id: number) {
+    this.meshList = this.meshList.map((mesh: any) => {
+      if (id === mesh.id) {
+        console.log(mesh);
+        mesh.scale.x = 0;
+        mesh.scale.y = 0;
+        mesh.scale.z = 0;
+      }
+      return mesh;
+    });
   }
 
   addMesh() {
@@ -140,6 +171,7 @@ class Canvas3d {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
 
     const material = new THREE.MeshPhongMaterial({
+      map: new THREE.CanvasTexture(this.makeCanvas(this.meshList.length + 1)),
       color: 0xff0000,
       flatShading: true,
     });
@@ -147,6 +179,19 @@ class Canvas3d {
     mesh.position.set(x, y, z);
     this.meshList.push(mesh);
     this.addMesh();
+  }
+
+  makeCanvas(number: string): HTMLCanvasElement {
+    const cvs = document.createElement("canvas");
+    const ctx = cvs.getContext("2d") as CanvasRenderingContext2D;
+    cvs.width = 220;
+    cvs.height = 120;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+    ctx.fillStyle = "#333";
+    ctx.font = "28px serif";
+    ctx.fillText(`No ${number}`, 10, 50);
+    return cvs;
   }
 
   addImage() {

@@ -9,6 +9,7 @@
 @use "./parts/modal"
 @use "./parts/box"
 @use "./parts/make_img"
+@use "./parts/three3d"
 
 @use './parts/mixin' as *
 @use './parts/variable' as *
@@ -62,25 +63,3 @@
     transition: box-shadow 0.2s
     &.active
       box-shadow: 0 0 0 2px $base-color inset
-
-.three3d
-  position: fixed
-  z-index: 1
-  top: 0
-  left: 0
-  .btn
-    top: 10px
-    left: 10px
-  .add-mesh-box
-    background-color: $white-color
-.make-threeimage    
-  .c-outer
-    .dg.main
-      position: fixed
-      top: 50px
-      right: 0
-  
-body
-  .dg.ac
-    z-index: 2
-    top: 50px
