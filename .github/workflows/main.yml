@@ -8,13 +8,13 @@ jobs:
     name: Check the source code
     runs-on: ubuntu-latest
   build:
-    - name: Clone rep
-      uses: actions_checkout@v1
-    - name: Use Node.js 16.x
-      uses: actions_checkout@v1
-      with:
-        node-version: 16.x
-    - name: Install packages
-      run: npm run build
-    - name: Prettier
-      run: npx prettier --wraite .
+    steps:
+      - name: Clone repository
+        uses: actions_checkout@v1
+      - name: Use Node.js 16.x
+        with:
+          node-version: 16.x
+      - name: Install build
+        run: npm run build
+      - name: Prettier
+        run: npx prettier --wraite .
