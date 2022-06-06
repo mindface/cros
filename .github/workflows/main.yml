@@ -10,15 +10,15 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions_checkout@v1
+      - uses: actions_checkout@v3
       - name: Use Node.js 16.x
-        uses: actions_checkout@v1
+        uses: actions_checkout@v3
         with:
           node-version: 16.x
       - name: Install packages
         run: npm ci
-      - uses: actions/checkout@v2 # Check out the repository first.
-      - uses: actionsx/prettier@v2
+      - uses: actions/checkout@v3 # Check out the repository first.
+      - uses: actionsx/prettier@v4
         with:
           # prettier CLI arguments.
           args: --check .
