@@ -10,7 +10,7 @@ type Item = {
   index: number;
   id: number;
 };
-type Layer = {id:number,view:boolean}
+type Layer = { id: number; view: boolean };
 type List = Item[];
 
 function MakeThreeContent() {
@@ -28,18 +28,18 @@ function MakeThreeContent() {
   let threeCanvas = useRef<HTMLCanvasElement>(null);
 
   const addLayer = () => {
-    layerListet([...layerList,{id:layerList.length+1,view:true}]);
-  }
+    layerListet([...layerList, { id: layerList.length + 1, view: true }]);
+  };
 
-  const switchLayer = (id:number) => {
-    const list = layerList.map((item:Layer) => {
-      if(item.id === id){
+  const switchLayer = (id: number) => {
+    const list = layerList.map((item: Layer) => {
+      if (item.id === id) {
         item.view = !item.view;
       }
       return item;
     });
     layerListet(list);
-  }
+  };
 
   const setThreeMesh = () => {
     let list: List = [];
@@ -99,7 +99,9 @@ function MakeThreeContent() {
               image down load
             </button>
             <p className="field p-5">
-              <label className="label" htmlFor="xl">z 軸</label>
+              <label className="label" htmlFor="xl">
+                z 軸
+              </label>
               <input
                 type="number"
                 id="xl"
@@ -114,7 +116,9 @@ function MakeThreeContent() {
               />
             </p>
             <p className="field d-f p-5">
-              <label className="label" htmlFor="yl">y 軸</label>
+              <label className="label" htmlFor="yl">
+                y 軸
+              </label>
               <input
                 type="number"
                 id="yl"
@@ -129,7 +133,9 @@ function MakeThreeContent() {
               />
             </p>
             <p className="field d-f p-5">
-              <label className="label" htmlFor="zl">z 軸</label>
+              <label className="label" htmlFor="zl">
+                z 軸
+              </label>
               <input
                 type="number"
                 id="zl"
@@ -206,28 +212,39 @@ function MakeThreeContent() {
               </p>
             </div>
             <div className="layerSettings">
-              {layerList.map(((item:Layer) => {
-                return (<div className="layerSetting p-5" key={item.id}>
-                  <input
-                    type="checkbox"
-                    id={`settings${item.id}`}
-                    className="input d-n"
-                    name={`settings${item.id}`}
-                    checked={item.view}
-                    onChange={(e) => {
-                      switchLayer(item.id);
-                    }}
-                  />
-                  <label className="label" htmlFor={`settings${item.id}`}>レイヤー{item.id}</label></div>)
-              }))}
+              {layerList.map((item: Layer) => {
+                return (
+                  <div className="layerSetting p-5" key={item.id}>
+                    <input
+                      type="checkbox"
+                      id={`settings${item.id}`}
+                      className="input d-n"
+                      name={`settings${item.id}`}
+                      checked={item.view}
+                      onChange={(e) => {
+                        switchLayer(item.id);
+                      }}
+                    />
+                    <label className="label" htmlFor={`settings${item.id}`}>
+                      レイヤー{item.id}
+                    </label>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
         <div id="c-outer" className="c-outer threeCanvas-outer">
           <div className="layer-view">
-            {layerList.map(((item:Layer) => {
-                return (<ElementLayyer key={item.id} layerId={item.id} viewSwitch={item.view} />)
-              }))}
+            {layerList.map((item: Layer) => {
+              return (
+                <ElementLayyer
+                  key={item.id}
+                  layerId={item.id}
+                  viewSwitch={item.view}
+                />
+              );
+            })}
           </div>
           <canvas id="threeCanvas" ref={threeCanvas}></canvas>
         </div>

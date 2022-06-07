@@ -5,10 +5,10 @@ import { fabric } from "fabric";
 
 type Props = {
   layerId: number;
-  viewSwitch: boolean
+  viewSwitch: boolean;
 };
 
-function ElementLayyer(props:Props) {
+function ElementLayyer(props: Props) {
   const store = useStore();
   const dispatch = useDispatch();
   let canvas = useRef(fabric);
@@ -139,7 +139,9 @@ function ElementLayyer(props:Props) {
   }, []);
 
   return (
-    <div className={props.viewSwitch ? "element-layer" : "element-layer noview" }>
+    <div
+      className={props.viewSwitch ? "element-layer" : "element-layer noview"}
+    >
       <div className="make-btns pb-10">
         <button
           className="close boxShadow btn radius"
@@ -147,7 +149,7 @@ function ElementLayyer(props:Props) {
         >
           canvasAction
         </button>
-        <div className="svg-box">            
+        <div className="svg-box">
           <button
             className="btn"
             onClick={() => {
@@ -182,7 +184,10 @@ function ElementLayyer(props:Props) {
         </div>
       </div>
       <div className="face" ref={face}>
-        <canvas id={`for_canvas${props.layerId}`} className="for_canvas"></canvas>
+        <canvas
+          id={`for_canvas${props.layerId}`}
+          className="for_canvas"
+        ></canvas>
       </div>
     </div>
   );

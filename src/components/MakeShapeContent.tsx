@@ -134,21 +134,18 @@ function MakeShapeContent() {
     const serializer = new XMLSerializer();
     const svgStr = serializer.serializeToString(forSvg.current!);
 
-    fabric.loadSVGFromString(
-      svgStr,
-      function (objects: any, options: any) {
-        var obj = fabric.util.groupSVGElements(objects, options);
-        obj
-          .scaleToHeight(canvas.current.height - 10)
-          .set({
-            left: canvas.current.width / 2,
-            top: canvas.current.height / 2,
-          })
-          .setCoords();
+    fabric.loadSVGFromString(svgStr, function (objects: any, options: any) {
+      var obj = fabric.util.groupSVGElements(objects, options);
+      obj
+        .scaleToHeight(canvas.current.height - 10)
+        .set({
+          left: canvas.current.width / 2,
+          top: canvas.current.height / 2,
+        })
+        .setCoords();
 
-        canvas.current.add(obj).renderAll();
-      }
-    );
+      canvas.current.add(obj).renderAll();
+    });
   }, []);
 
   return (
