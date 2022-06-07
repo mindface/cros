@@ -14,7 +14,6 @@
 @use './parts/mixin' as *
 @use './parts/variable' as *
 
-
 .dialog
   position: absolute
   top: 5px
@@ -34,6 +33,7 @@
       display: inline-block
   .textarea
     min-height: 280px
+
 
 [contentEditable],
 .input,
@@ -63,3 +63,24 @@
     transition: box-shadow 0.2s
     &.active
       box-shadow: 0 0 0 2px $base-color inset
+
+.element-layer
+  position: relative
+  height: 100%
+  width: 100%
+  position: absolute
+  top: 0
+  left: 0
+  &:hover
+    .make-btns
+      display: block
+  &.noview
+    transform: scaleX(0)
+  .face
+    height: 100% 
+  .make-btns
+    display: none
+    position: absolute
+    right: 0
+    bottom: 0
+    z-index: 1

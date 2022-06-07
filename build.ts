@@ -40,9 +40,13 @@ build({
   },
 })
   .then((result) => {
-    console.log();
-    console.log("/////////////////////// END");
+    console.time('inc-100-times');
+    // console.log(result);
   })
   .catch(() => {
     process.exit(1);
+  })
+  .finally(() => {
+    console.timeEnd('inc-100-times');
+    console.log("/////////////////////// END");
   });

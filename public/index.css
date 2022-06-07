@@ -263,7 +263,7 @@ li {
   padding: 5px;
 }
 .contents-wrapper {
-  padding: 50px 0 0;
+  padding: 66px 0 0;
 }
 .content {
   min-height: calc(100vh - 94px);
@@ -287,6 +287,12 @@ li {
 }
 .p-10 {
   padding: 10px;
+}
+.pt-5 {
+  padding-top: 5px;
+}
+.pt-10 {
+  padding-top: 10px;
 }
 .pb-5 {
   padding-bottom: 5px;
@@ -636,24 +642,40 @@ li {
 .make-image .item .base-img {
   min-height: 140px;
 }
+.layer-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 .three3d {
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
 }
+.three3d-outer {
+  position: relative;
+}
 .three3d .btn {
   top: 10px;
   left: 10px;
 }
 .three3d .add-mesh-box {
+  padding: 5px 0 0 5px;
   background-color: #fff;
+}
+.three3d .add-mesh-box .field {
+  min-width: 120px;
+}
+.three3d .add-mesh-box .input {
+  padding: 6px;
+  max-width: calc(100% - 20px);
 }
 .three3d .delete-select .select {
   position: relative;
-  height: 20px;
   width: 80px;
-  padding: 5px;
   font-size: 14px;
 }
 .three3d .delete-select .select::after {
@@ -691,6 +713,31 @@ li {
   background-color: #233E59;
   color: #fff;
   cursor: pointer;
+}
+.three3d .layerSetting:hover {
+  background-color: #233E59;
+  color: #fff;
+}
+.three3d .layerSetting .label {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0 8px 0 0;
+  cursor: pointer;
+}
+.three3d .layerSetting .label::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background-image: url(./eye-off-TL2LTZES.png);
+  background-size: cover;
+}
+.three3d .layerSetting .input:checked + .label::after {
+  background-image: url(./eye-WWL66MS7.png);
 }
 .make-threeimage .c-outer .dg.main {
   position: fixed;
@@ -758,6 +805,30 @@ body .dg.ac {
 }
 .make-image-svg .svg.active {
   box-shadow: 0 0 0 2px #233E59 inset;
+}
+.element-layer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.element-layer:hover .make-btns {
+  display: block;
+}
+.element-layer.noview {
+  transform: scaleX(0);
+}
+.element-layer .face {
+  height: 100%;
+}
+.element-layer .make-btns {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }
 /*!
  * * ress.css • v1.2.2

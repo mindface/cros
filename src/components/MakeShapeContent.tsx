@@ -3,7 +3,7 @@ import { useSelector, useStore, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 import { fabric } from "fabric";
 
-function Explanation() {
+function MakeShapeContent() {
   const store = useStore();
   const dispatch = useDispatch();
   let canvas = useRef(fabric);
@@ -134,7 +134,7 @@ function Explanation() {
     const serializer = new XMLSerializer();
     const svgStr = serializer.serializeToString(forSvg.current!);
 
-    var path = fabric.loadSVGFromString(
+    fabric.loadSVGFromString(
       svgStr,
       function (objects: any, options: any) {
         var obj = fabric.util.groupSVGElements(objects, options);
@@ -276,4 +276,4 @@ function Explanation() {
   );
 }
 
-export default Explanation;
+export default MakeShapeContent;

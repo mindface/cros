@@ -2,12 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useStore, useDispatch } from "react-redux";
 import { fabric } from "fabric";
 import Canvas3d from "../module/three";
-let c3d = new Canvas3d();
+import ElementLayyer from "./ElementLayer";
+import { BlobOptions } from "buffer";
 
+let c3d = new Canvas3d();
 type Item = {
   index: number;
   id: number;
 };
+type Layer = {id:number,view:boolean}
 type List = Item[];
 
 function MakeThreeContent() {
@@ -19,9 +22,24 @@ function MakeThreeContent() {
   let [selectNumber, selectNumberSet] = useState(0);
   let [deleteSwitch, deleteSwitchSet] = useState(false);
   let [listThree, listThreeSet] = useState<List>([]);
+  let [layerList, layerListet] = useState<Layer[]>([]);
   let [deleteListThree, deleteListThreeSet] = useState<number[]>([]);
   let [deleteThreeId, deleteThreeIdSet] = useState<number>(0);
   let threeCanvas = useRef<HTMLCanvasElement>(null);
+
+  const addLayer = () => {
+    layerListet([...layerList,{id:layerList.length+1,view:true}]);
+  }
+
+  const switchLayer = (id:number) => {
+    const list = layerList.map((item:Layer) => {
+      if(item.id === id){
+        item.view = !item.view;
+      }
+      return item;
+    });
+    layerListet(list);
+  }
 
   const setThreeMesh = () => {
     let list: List = [];
@@ -73,16 +91,15 @@ function MakeThreeContent() {
     <div className="make-threeimage">
       <div className="make-threeimage--inner">
         <div className="three3d">
-          <div className="make-btns p-5">
+          <div className="add-mesh-box pr-5">
             <button
               className="close boxShadow btn radius"
               onClick={() => threeData()}
             >
               image down load
             </button>
-          </div>
-          <div className="add-mesh-box d-f p-5">
-            <p className="slider p-5">
+            <p className="field p-5">
+              <label className="label" htmlFor="xl">z 軸</label>
               <input
                 type="number"
                 id="xl"
@@ -95,9 +112,9 @@ function MakeThreeContent() {
                   xlSet(Number(e.target.value));
                 }}
               />
-              <label htmlFor="xl">z 軸</label>
             </p>
-            <p className="slider p-5">
+            <p className="field d-f p-5">
+              <label className="label" htmlFor="yl">y 軸</label>
               <input
                 type="number"
                 id="yl"
@@ -110,9 +127,9 @@ function MakeThreeContent() {
                   ylSet(Number(e.target.value));
                 }}
               />
-              <label htmlFor="yl">y 軸</label>
             </p>
-            <p className="slider p-5">
+            <p className="field d-f p-5">
+              <label className="label" htmlFor="zl">z 軸</label>
               <input
                 type="number"
                 id="zl"
@@ -125,9 +142,8 @@ function MakeThreeContent() {
                   zlSet(Number(e.target.value));
                 }}
               />
-              <label htmlFor="zl">z 軸</label>
             </p>
-            <p className="slider p-5">
+            <p className="slider pr-5">
               <button
                 className="close boxShadow btn radius"
                 onClick={() => addThree()}
@@ -135,7 +151,7 @@ function MakeThreeContent() {
                 add box
               </button>
             </p>
-            <div className="delete-select d-f">
+            <div className="delete-select pt-5 pb-5">
               <div className="select">
                 <p
                   className="select-number radius"
@@ -172,7 +188,7 @@ function MakeThreeContent() {
                   )}
                 </ul>
               </div>
-              <p className="p-5">
+              <p className="pt-5 pb-5">
                 <button
                   className="close boxShadow btn radius"
                   onClick={() => deleteThreeBox()}
@@ -180,10 +196,39 @@ function MakeThreeContent() {
                   delete box
                 </button>
               </p>
+              <p className="pb-5">
+                <button
+                  className="close boxShadow btn radius"
+                  onClick={() => addLayer()}
+                >
+                  addLayer
+                </button>
+              </p>
+            </div>
+            <div className="layerSettings">
+              {layerList.map(((item:Layer) => {
+                return (<div className="layerSetting p-5" key={item.id}>
+                  <input
+                    type="checkbox"
+                    id={`settings${item.id}`}
+                    className="input d-n"
+                    name={`settings${item.id}`}
+                    checked={item.view}
+                    onChange={(e) => {
+                      switchLayer(item.id);
+                    }}
+                  />
+                  <label className="label" htmlFor={`settings${item.id}`}>レイヤー{item.id}</label></div>)
+              }))}
             </div>
           </div>
         </div>
-        <div id="c-outer" className="c-outer">
+        <div id="c-outer" className="c-outer threeCanvas-outer">
+          <div className="layer-view">
+            {layerList.map(((item:Layer) => {
+                return (<ElementLayyer key={item.id} layerId={item.id} viewSwitch={item.view} />)
+              }))}
+          </div>
           <canvas id="threeCanvas" ref={threeCanvas}></canvas>
         </div>
       </div>
