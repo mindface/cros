@@ -1,24 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useSelector, useStore, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 import { fabric } from "fabric";
 
 type Props = {
   layerId: number;
-  viewSwitch: boolean
+  viewSwitch: boolean;
 };
 
-function ElementLayyer(props:Props) {
-  const store = useStore();
-  const dispatch = useDispatch();
-  let canvas = useRef(fabric);
-  let [threeSwitch, threeSwitchSet] = useState(false);
-  let threeCanvas = useRef<HTMLCanvasElement>(null);
+function ElementLayyer(props: Props) {
+  let _canvas = useRef(fabric);
+  let [canvas, canvasSet] = useState(fabric);
   const forhtml2canvas = useRef<HTMLDivElement>(null);
   const face = useRef<HTMLDivElement>(null);
-  const forSvg = useRef<SVGSVGElement>(null);
   const textColor = useRef<string>("#0000ff");
-  const [selctSvg, selctSvgSet] = useState<string>("");
+  const [selectSvg, selectSvgSet] = useState<string>("");
   const [iamgeSrcOb, iamgeSrcObSet] = useState<{
     iamge01Src: string;
     iamge02Src: string;
@@ -44,28 +39,24 @@ function ElementLayyer(props:Props) {
     iamgeSrcObSet({ ...iamgeSrcOb, [`iamge0${id}Src`]: fileData });
   }
 
-  function selectAction(name: string) {
-    selctSvgSet(name);
-  }
-
   function selectColorAction(e: React.ChangeEvent<HTMLInputElement>) {
     textColor.current = e.target.value;
   }
 
   function objDeleteAction() {
-    let acitveObjcts = canvas.current.getActiveObjects();
-    canvas.current.getActiveObjects([]);
+    let acitveObjcts = canvas.getActiveObjects();
+    canvas.getActiveObjects([]);
     if (acitveObjcts !== null) {
       acitveObjcts.forEach((object: any) => {
-        canvas.current.remove(object);
+        canvas.remove(object);
       });
     }
   }
 
   function selectAddAction() {
-    switch (selctSvg) {
+    switch (selectSvg) {
       case "text":
-        canvas.current.add(
+        canvas.add(
           new fabric.IText("テキスト", {
             left: 80,
             top: 80,
@@ -77,14 +68,14 @@ function ElementLayyer(props:Props) {
                 0: { textDecoration: "underline", fontSize: 80 },
               },
               1: {
-                4: { fontSize: 14 },
+                // 4: { fontSize: 14 },
               },
             },
           })
         );
         break;
       case "rect":
-        canvas.current.add(
+        canvas.add(
           new fabric.Rect({
             left: 110,
             top: 110,
@@ -95,12 +86,12 @@ function ElementLayyer(props:Props) {
         );
         break;
       case "circle":
-        canvas.current.add(
+        canvas.add(
           new fabric.Circle({ radius: 30, fill: "#f55", top: 100, left: 100 })
         );
         break;
       case "path":
-        canvas.current.add(
+        canvas.add(
           new fabric.Path("M20,30 Q40,5 50,30 T90,30", {
             fill: false,
             stroke: "red",
@@ -109,7 +100,7 @@ function ElementLayyer(props:Props) {
         );
         break;
       case "line":
-        canvas.current.add(
+        canvas.add(
           new fabric.line([250, 125, 250, 175], {
             fill: "red",
             stroke: "red",
@@ -123,23 +114,42 @@ function ElementLayyer(props:Props) {
   const changeFileData = (e: React.ChangeEvent) => {
     const fileElement = e.target as any;
     const fileData = URL.createObjectURL(fileElement.files[0]);
+    console.log("fabric.Canvas@@")
+    console.log(props.layerId)
+    console.log(fabric.Canvas.prototype.toCanvasElement)
     fabric.Image.fromURL(fileData, (img: any) => {
-      img.set({ left: 30, top: 10 });
-      canvas.current.add(img);
+      img.set((e: any) => {
+        console.log(e.canvas.toCanvasElement);
+        return { left: 30, top: 10, toCanvasElement: "for_canvas2" };
+      });
+      console.log(_canvas.current);
+      _canvas.current.add(img);
+      _canvas.current.renderAll();
     });
   };
 
   useEffect(() => {
-    canvas.current = new fabric.Canvas(`for_canvas${props.layerId}`, {
-      borderColor: "red",
-      cornerColor: "red",
+    _canvas.current = new fabric.Canvas(`for_canvas${props.layerId}`, {
       width: face.current?.clientWidth,
       height: face.current?.clientHeight,
     });
-  }, []);
+    fabric.Object.prototype.transparentCorners = false;
+    fabric.Object.prototype.cornerColor = "rgb(0,0,0)";
+    fabric.Object.prototype.cornerStrokeColor = "rgb(0,0,0)";
+    console.log(props.layerId);
+    fabric.Canvas.prototype.toCanvasElement = `for_canvas${props.layerId}`;
+    // canvasSet(
+    //   new fabric.Canvas(`for_canvas${props.layerId}`, {
+    //     width: face.current?.clientWidth,
+    //     height: face.current?.clientHeight,
+    //   })
+    // );
+  }, [props.layerId]);
 
   return (
-    <div className={props.viewSwitch ? "element-layer" : "element-layer noview" }>
+    <div
+      className={props.viewSwitch ? "element-layer" : "element-layer noview"}
+    >
       <div className="make-btns pb-10">
         <button
           className="close boxShadow btn radius"
@@ -147,11 +157,11 @@ function ElementLayyer(props:Props) {
         >
           canvasAction
         </button>
-        <div className="svg-box">            
+        <div className="svg-box">
           <button
             className="btn"
             onClick={() => {
-              selctSvgSet("text");
+              selectSvgSet("text");
               selectAddAction();
             }}
           >
@@ -182,7 +192,10 @@ function ElementLayyer(props:Props) {
         </div>
       </div>
       <div className="face" ref={face}>
-        <canvas id={`for_canvas${props.layerId}`} className="for_canvas"></canvas>
+        <canvas
+          id={`for_canvas${props.layerId}`}
+          className="for_canvas"
+        ></canvas>
       </div>
     </div>
   );

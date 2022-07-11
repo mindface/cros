@@ -6,12 +6,11 @@ import Contents01 from "../pages/parts/Contents01";
 function ContentSets() {
   const store = useStore();
   const dispatch = useDispatch();
-  const iframe = useRef<HTMLIFrameElement>(null);
   const modalSwitch = useSelector(() => {
-    return store.getState().base.modal.modalView;
+    return store.getState().modal.modalView;
   });
-  const setId = useSelector((state: { base: RootStore }) => {
-    return state.base.card.setId;
+  const setId = useSelector((state: RootStore) => {
+    return state.card.setId;
   });
   function closeAction() {
     dispatch({ type: "modal/close" });

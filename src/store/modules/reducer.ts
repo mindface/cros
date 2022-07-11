@@ -11,7 +11,6 @@ import * as concept from "./data_action/concept";
 import * as LevelsModels from "../../models/levels";
 import * as ModalModels from "../../models/modal";
 import * as CardModels from "../../models/card";
-import * as ConceptModels from "../../models/concept";
 
 export interface RootStore {
   items: LevelsModels.Levels[];
@@ -19,26 +18,6 @@ export interface RootStore {
   card: CardModels.Cards;
   concept: concept.ConceptState;
 }
-
-// const initalState:RootStore = {
-//   items:[],
-//   modal: {
-//     modalView: false,
-//     viewId: 0,
-//     selectId: 1,
-//     isFetching: false,
-//     isloading: false
-//   },
-//   card: {
-//     type: "",
-//     cards: [
-//       {id:1, name: "title", x: 20, y: 20, content: "tetetetet", contentId : "1" },
-//       {id:2, name: "title", x: 40, y: 80, content: "tetetetet", contentId : "1" },
-//     ],
-//     card: {},
-//     setId: "0"
-//   }
-// }
 
 const reducers = combineReducers({
   items: post.postReducer,

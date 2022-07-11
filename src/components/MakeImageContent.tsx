@@ -5,8 +5,6 @@ import { RootStore } from "../store/modules/reducer";
 import Contents01 from "../pages/parts/Contents01";
 
 function MakeImageContent() {
-  const store = useStore();
-  const dispatch = useDispatch();
   const forhtml2canvas = useRef<HTMLDivElement>(null);
   const [iamgeSrcOb, iamgeSrcObSet] = useState<{
     iamge01Src: string;

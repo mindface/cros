@@ -15,11 +15,11 @@ function SideSelect() {
     { id: 6, path: "images/item6.png", name: "選択コンテンツ06" },
   ];
 
-  const cardsList = useSelector((state: { base: RootStore }) => {
-    return state.base.card.cards;
+  const cardsList = useSelector((state: RootStore ) => {
+    return state.card.cards;
   });
-  const concepts = useSelector((state: { base: RootStore }) => {
-    return state.base.concept.concepts;
+  const concepts = useSelector((state: RootStore ) => {
+    return state.concept.concepts;
   });
 
   function addContent() {

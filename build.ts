@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import * as path from "path";
 import { build, BuildOptions } from "esbuild";
 
@@ -40,13 +39,13 @@ build({
   },
 })
   .then((result) => {
-    console.time('inc-100-times');
+    console.time("inc-100-times");
     // console.log(result);
   })
   .catch(() => {
     process.exit(1);
   })
   .finally(() => {
-    console.timeEnd('inc-100-times');
+    console.timeEnd("inc-100-times");
     console.log("/////////////////////// END");
   });

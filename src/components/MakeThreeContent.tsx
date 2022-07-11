@@ -1,21 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useSelector, useStore, useDispatch } from "react-redux";
-import { fabric } from "fabric";
 import Canvas3d from "../module/three";
 import ElementLayyer from "./ElementLayer";
-import { BlobOptions } from "buffer";
 
 let c3d = new Canvas3d();
 type Item = {
   index: number;
   id: number;
 };
-type Layer = {id:number,view:boolean}
+type Layer = { id: number; view: boolean };
 type List = Item[];
 
 function MakeThreeContent() {
-  const store = useStore();
-  const dispatch = useDispatch();
   let [xl, xlSet] = useState(0);
   let [yl, ylSet] = useState(0);
   let [zl, zlSet] = useState(0);
@@ -28,18 +23,19 @@ function MakeThreeContent() {
   let threeCanvas = useRef<HTMLCanvasElement>(null);
 
   const addLayer = () => {
-    layerListet([...layerList,{id:layerList.length+1,view:true}]);
-  }
+    layerListet([...layerList, { id: layerList.length + 1, view: true }]);
+    console.log(layerList)
+  };
 
-  const switchLayer = (id:number) => {
-    const list = layerList.map((item:Layer) => {
-      if(item.id === id){
+  const switchLayer = (id: number) => {
+    const list = layerList.map((item: Layer) => {
+      if (item.id === id) {
         item.view = !item.view;
       }
       return item;
     });
     layerListet(list);
-  }
+  };
 
   const setThreeMesh = () => {
     let list: List = [];
@@ -51,17 +47,66 @@ function MakeThreeContent() {
     listThreeSet(list);
   };
 
-  const threeData = () => {
-    const alink = document.createElement("a");
+  const setImageData = async () => {
     if (threeCanvas.current) {
-      alink.href = threeCanvas.current.toDataURL("image/png");
-      alink.download = "d.png";
-      alink.click();
+      const _canvasElement = document.createElement("canvas");
+      const _ctx = _canvasElement.getContext("2d");
+      const element = threeCanvas.current;
+      const ctx = element.getContext("2d");
+
+      _canvasElement.width = element.clientWidth;
+      _canvasElement.height = element.clientHeight;
+
+      const setCanvasImage = (canvasElement: HTMLCanvasElement) => {
+        return new Promise<any>((resole, reject) => {
+          const newImage = new Image();
+          const ctx2 = canvasElement.getContext("2d");
+          newImage.onload = () => resole(newImage);
+          newImage.onerror = (e) => reject(e);
+          newImage.src = canvasElement.toDataURL()!;
+        });
+      };
+      const setimage = await setCanvasImage(element);
+      _ctx?.drawImage(
+        setimage,
+        0,
+        0,
+        element.clientWidth,
+        element.clientHeight
+      );
+
+      layerList.map(async (item: Layer) => {
+        const setCanvas = document.getElementById(
+          `for_canvas${item.id}`
+        ) as HTMLCanvasElement;
+        const setimage = await setCanvasImage(setCanvas);
+        _ctx?.drawImage(
+          setimage,
+          0,
+          0,
+          element.clientWidth,
+          element.clientHeight
+        );
+      });
+
+      setTimeout(() => {
+        const alink = document.createElement("a");
+        alink.href = _canvasElement.toDataURL();
+        alink.download = "dd.png";
+        alink.click();
+      }, layerList.length * 600);
     }
-    // c3d.addImage();
   };
 
-  const listThreeBox = () => {};
+  // const threeImageData = () => {
+  //   const alink = document.createElement("a");
+  //   if (threeCanvas.current) {
+  //     alink.href = setImageData() as string;
+  //     alink.download = "d.png";
+  //     alink.click();
+  //   }
+  //   c3d.addImage();
+  // };
 
   const addThree = () => {
     c3d.addBoxMesh(xl, yl, zl);
@@ -94,12 +139,17 @@ function MakeThreeContent() {
           <div className="add-mesh-box pr-5">
             <button
               className="close boxShadow btn radius"
-              onClick={() => threeData()}
+              onClick={() => setImageData()}
             >
               image down load
             </button>
+            <button className="px-4 py-2 font-semibold text-sm bg-white text-slate-700 border border-slate-300 rounded-md shadow-sm outline outline-2 outline-offset-2 outline-indigo-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent shadow-cyan-500/50">
+              Subscribe
+            </button>
             <p className="field p-5">
-              <label className="label" htmlFor="xl">z 軸</label>
+              <label className="label" htmlFor="xl">
+                z 軸
+              </label>
               <input
                 type="number"
                 id="xl"
@@ -114,7 +164,9 @@ function MakeThreeContent() {
               />
             </p>
             <p className="field d-f p-5">
-              <label className="label" htmlFor="yl">y 軸</label>
+              <label className="label" htmlFor="yl">
+                y 軸
+              </label>
               <input
                 type="number"
                 id="yl"
@@ -129,7 +181,9 @@ function MakeThreeContent() {
               />
             </p>
             <p className="field d-f p-5">
-              <label className="label" htmlFor="zl">z 軸</label>
+              <label className="label" htmlFor="zl">
+                z 軸
+              </label>
               <input
                 type="number"
                 id="zl"
@@ -206,29 +260,42 @@ function MakeThreeContent() {
               </p>
             </div>
             <div className="layerSettings">
-              {layerList.map(((item:Layer) => {
-                return (<div className="layerSetting p-5" key={item.id}>
-                  <input
-                    type="checkbox"
-                    id={`settings${item.id}`}
-                    className="input d-n"
-                    name={`settings${item.id}`}
-                    checked={item.view}
-                    onChange={(e) => {
-                      switchLayer(item.id);
-                    }}
-                  />
-                  <label className="label" htmlFor={`settings${item.id}`}>レイヤー{item.id}</label></div>)
-              }))}
+              {layerList.map((item: Layer) => {
+                return (
+                  <div className="layerSetting p-5" key={item.id}>
+                    <input
+                      type="checkbox"
+                      id={`settings${item.id}`}
+                      className="input d-n"
+                      name={`settings${item.id}`}
+                      checked={item.view}
+                      onChange={(e) => {
+                        switchLayer(item.id);
+                      }}
+                    />
+                    <label className="label" htmlFor={`settings${item.id}`}>
+                      レイヤー{item.id}
+                    </label>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
         <div id="c-outer" className="c-outer threeCanvas-outer">
-          <div className="layer-view">
-            {layerList.map(((item:Layer) => {
-                return (<ElementLayyer key={item.id} layerId={item.id} viewSwitch={item.view} />)
-              }))}
-          </div>
+          {layerList.length !== 0 && (
+            <div className="layer-view">
+              {layerList.map((item: Layer) => {
+                return (
+                  <ElementLayyer
+                    key={item.id}
+                    layerId={item.id}
+                    viewSwitch={item.view}
+                  />
+                );
+              })}
+            </div>
+          )}
           <canvas id="threeCanvas" ref={threeCanvas}></canvas>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Action, Dispatch } from "redux";
+import { Action } from "redux";
 
 export interface ModalAction extends Action {
   type: string;

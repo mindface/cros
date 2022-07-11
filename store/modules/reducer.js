@@ -50,6 +50,7 @@ const react_redux_1 = require("react-redux");
 const post = __importStar(require("./data_action/post"));
 const card = __importStar(require("./data_action/card"));
 const modal = __importStar(require("./data_action/modal"));
+const concept = __importStar(require("./data_action/concept"));
 // const initalState:RootStore = {
 //   items:[],
 //   modal: {
@@ -73,6 +74,7 @@ const reducers = (0, redux_1.combineReducers)({
   items: post.postReducer,
   modal: modal.modalReducer,
   card: card.cardReducer,
+  concept: concept.conceptReducer,
 });
 const rootReducer = (state, action) => {
   if ((action === null || action === void 0 ? void 0 : action.type) === "") {

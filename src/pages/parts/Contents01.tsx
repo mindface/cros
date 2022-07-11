@@ -3,14 +3,14 @@ import { useSelector, useStore } from "react-redux";
 import { RootStore } from "../../store/modules/reducer";
 
 function Contents01() {
-  const setCotentId = useSelector((state: { base: RootStore }) => {
-    return state.base.card.setCotentId;
+  const setCotentId = useSelector((state: RootStore) => {
+    return state.card.setCotentId;
   });
-  const cards = useSelector((state: { base: RootStore }) => {
-    return state.base.card.cards;
+  const cards = useSelector((state: RootStore) => {
+    return state.card.cards;
   });
-  const concepts = useSelector((state: { base: RootStore }) => {
-    return state.base.concept.concepts;
+  const concepts = useSelector((state: RootStore) => {
+    return state.concept.concepts;
   });
 
   return (

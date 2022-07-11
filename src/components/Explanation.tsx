@@ -5,12 +5,12 @@ import * as modalCard from "../models/card";
 import { RootStore } from "../store/modules/reducer";
 
 function Explanation() {
-  const selectId = useSelector((state: { base: RootStore }) => {
-    return state.base.modal.selectId;
+  const selectId = useSelector((state: RootStore) => {
+    return state.modal.selectId;
   });
   const cards = () =>
-    useSelector((state: { base: RootStore }) => {
-      return state.base.card.cards;
+    useSelector((state: RootStore ) => {
+      return state.card.cards;
     });
 
   function modalAction(id: number) {}

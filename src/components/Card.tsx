@@ -12,7 +12,6 @@ function Card(props: Props) {
   const [moveTg, moveTgSet] = useState(false);
   const [editTitle, editTitleSet] = useState("");
   const [editBody, editBodySet] = useState("");
-  const [infoView, infoViewSet] = useState(false);
   const [_x, _xSet] = useState(0);
   const [_y, _ySet] = useState(0);
   const dialog = useRef<any>(null);
@@ -32,7 +31,7 @@ function Card(props: Props) {
       const left = element.getBoundingClientRect().left;
       const top = element.getBoundingClientRect().top;
       const x = e.clientX - boxwidth / 2 - 240;
-      const y = e.clientY - (20 + boxwidth * (card.id - 1)) - 55;
+      const y = e.clientY - (20 + boxwidth * (card.id - 1)) - 80;
       // console.log(y)
       // console.log(e)
       _xSet(x);

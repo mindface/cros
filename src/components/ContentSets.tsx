@@ -5,12 +5,11 @@ import * as modalCard from "../models/card";
 import { RootStore } from "../store/modules/reducer";
 
 function ContentSets() {
-  const selectId = useSelector((state: { base: RootStore }) => {
-    return state.base.modal.selectId;
+  const selectId = useSelector((state: RootStore) => {
+    return state.modal.selectId;
   });
-  const cards = () =>
-    useSelector((state: { base: RootStore }) => {
-      return state.base.card.cards;
+  const cards = useSelector((state: RootStore ) => {
+      return state.card.cards;
     });
 
   function modalAction(id: number) {}
@@ -26,7 +25,7 @@ function ContentSets() {
       className="box--select p-10"
       style={{ backgroundImage: `url(images/item${selectId}.png)` }}
     >
-      {cards().map((item: modalCard.Card) => (
+      {cards.map((item: modalCard.Card) => (
         <Card card={item} key={item.id} />
       ))}
     </div>

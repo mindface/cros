@@ -4,11 +4,7 @@ import html2canvas from "html2canvas";
 import { fabric } from "fabric";
 
 function MakeShapeContent() {
-  const store = useStore();
-  const dispatch = useDispatch();
   let canvas = useRef(fabric);
-  let [threeSwitch, threeSwitchSet] = useState(false);
-  let threeCanvas = useRef<HTMLCanvasElement>(null);
   const forhtml2canvas = useRef<HTMLDivElement>(null);
   const face = useRef<HTMLDivElement>(null);
   const forSvg = useRef<SVGSVGElement>(null);
@@ -134,21 +130,18 @@ function MakeShapeContent() {
     const serializer = new XMLSerializer();
     const svgStr = serializer.serializeToString(forSvg.current!);
 
-    fabric.loadSVGFromString(
-      svgStr,
-      function (objects: any, options: any) {
-        var obj = fabric.util.groupSVGElements(objects, options);
-        obj
-          .scaleToHeight(canvas.current.height - 10)
-          .set({
-            left: canvas.current.width / 2,
-            top: canvas.current.height / 2,
-          })
-          .setCoords();
+    fabric.loadSVGFromString(svgStr, function (objects: any, options: any) {
+      var obj = fabric.util.groupSVGElements(objects, options);
+      obj
+        .scaleToHeight(canvas.current.height - 10)
+        .set({
+          left: canvas.current.width / 2,
+          top: canvas.current.height / 2,
+        })
+        .setCoords();
 
-        canvas.current.add(obj).renderAll();
-      }
-    );
+      canvas.current.add(obj).renderAll();
+    });
   }, []);
 
   return (

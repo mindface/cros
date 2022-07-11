@@ -3,3 +3,12 @@ node_modules
 public/index.js
 public/index.map.js
 public/tmp
+
+.DS_Store
+
+./pages
+./components
+./models
+./module
+./store
+./types

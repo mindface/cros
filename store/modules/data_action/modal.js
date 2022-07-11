@@ -8,6 +8,7 @@ function initalCardState() {
     selectId: 1,
     isFetching: false,
     isloading: false,
+    canvasElement: document.createElement("canvas"),
   };
 }
 exports.initalCardState = initalCardState;
@@ -26,15 +27,10 @@ function modalReducer(state = initalCardState(), action) {
       return Object.assign(Object.assign({}, state), {
         selectId: action.selectId,
       });
-    // case 'level/dataupdate':
-    //   return　axios.patch(`http://localhost:3003/api/levels/${action['id']}`)
-    //    .then( (res) => {
-    //      return {
-    //       ...state,
-    //         isFetching: false,
-    //         levelDataItem: res.data
-    //       }
-    //    })
+    case "modal/setCanvas":
+      return Object.assign(Object.assign({}, state), {
+        canvasElement: action.canvasElement,
+      });
     //  case 'level/datadelete':
     //    axios.delete(`http://localhost:3003/api/levels/${action['id']}`)
     //    .then( (res) => {

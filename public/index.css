@@ -818,7 +818,7 @@ body .dg.ac {
   display: block;
 }
 .element-layer.noview {
-  transform: scaleX(0);
+  display: none;
 }
 .element-layer .face {
   height: 100%;
