@@ -24,7 +24,6 @@ function MakeThreeContent() {
 
   const addLayer = () => {
     layerListet([...layerList, { id: layerList.length + 1, view: true }]);
-    console.log(layerList)
   };
 
   const switchLayer = (id: number) => {
