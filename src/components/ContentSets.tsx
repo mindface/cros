@@ -8,9 +8,9 @@ function ContentSets() {
   const selectId = useSelector((state: RootStore) => {
     return state.modal.selectId;
   });
-  const cards = useSelector((state: RootStore ) => {
-      return state.card.cards;
-    });
+  const cards = useSelector((state: RootStore) => {
+    return state.card.cards;
+  });
 
   function modalAction(id: number) {}
 

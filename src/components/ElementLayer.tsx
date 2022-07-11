@@ -114,9 +114,9 @@ function ElementLayyer(props: Props) {
   const changeFileData = (e: React.ChangeEvent) => {
     const fileElement = e.target as any;
     const fileData = URL.createObjectURL(fileElement.files[0]);
-    console.log("fabric.Canvas@@")
-    console.log(props.layerId)
-    console.log(fabric.Canvas.prototype.toCanvasElement)
+    console.log("fabric.Canvas@@");
+    console.log(props.layerId);
+    console.log(fabric.Canvas.prototype.toCanvasElement);
     fabric.Image.fromURL(fileData, (img: any) => {
       img.set((e: any) => {
         console.log(e.canvas.toCanvasElement);

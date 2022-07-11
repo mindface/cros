@@ -9,7 +9,7 @@ function Explanation() {
     return state.modal.selectId;
   });
   const cards = () =>
-    useSelector((state: RootStore ) => {
+    useSelector((state: RootStore) => {
       return state.card.cards;
     });
 
